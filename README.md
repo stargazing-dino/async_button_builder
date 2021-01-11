@@ -3,7 +3,7 @@
 A builder that adds loading and disabled states on top of buttons that perform asynchronous. It can be used with most any button or even on top of a custom Material button. It includes fluid animation between states as well using `AnimatedSize`.
 
 <p>  
- <img src="https://github.com/Nolence/async_button_builder/main/screenshots/ezgif-2-22348353c16f.gif?raw=true"/>
+ <img src="https://github.com/Nolence/async_button_builder/screenshots/ezgif-2-22348353c16f.gif?raw=true"/>
 </p>  
 
 ## Getting Started
