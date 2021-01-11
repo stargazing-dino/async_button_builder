@@ -20,6 +20,12 @@ class AsyncButtonBuilder extends StatefulWidget {
 
   final Widget? _loadingWidget;
 
+  final Color? _valueColor;
+
+  final EdgeInsets? _padding;
+
+  final EdgeInsets? _loadingPadding;
+
   const AsyncButtonBuilder({
     Key? key,
     required this.builder,
@@ -28,8 +34,14 @@ class AsyncButtonBuilder extends StatefulWidget {
     this.duration = const Duration(milliseconds: 250),
     bool? isLoading,
     Widget? loadingWidget,
+    Color? valueColor,
+    EdgeInsets? padding,
+    EdgeInsets? loadingPadding,
   })  : _loadingWidget = loadingWidget,
         _isLoading = isLoading,
+        _valueColor = valueColor,
+        _padding = padding,
+        _loadingPadding = loadingPadding,
         super(key: key);
 
   @override
@@ -63,21 +75,32 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   Widget build(BuildContext context) {
-    final loadingWidget = widget._loadingWidget ??
-        const Center(
-          child: SizedBox(
-            height: 16.0,
-            width: 16.0,
-            child: CircularProgressIndicator(),
+    final color = widget._valueColor;
+    final padding = widget._padding;
+    final loadingPadding = widget._loadingPadding;
+    final valueColor =
+        color == null ? null : AlwaysStoppedAnimation<Color>(color);
+    final child = padding == null
+        ? widget.child
+        : Padding(padding: padding, child: widget.child);
+    var loadingWidget = widget._loadingWidget ??
+        SizedBox(
+          height: 16.0,
+          width: 16.0,
+          child: CircularProgressIndicator(
+            valueColor: valueColor,
           ),
         );
+    loadingWidget = loadingPadding == null
+        ? loadingWidget
+        : Padding(padding: loadingPadding, child: loadingWidget);
 
     return widget.builder(
       context,
       AnimatedSize(
         duration: widget.duration,
         vsync: this,
-        child: isLoading ? loadingWidget : widget.child,
+        child: isLoading ? loadingWidget : child,
       ),
       isLoading
           ? null
