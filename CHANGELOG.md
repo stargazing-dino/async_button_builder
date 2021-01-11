@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 2021-01-11
 
-* TODO: Describe initial release.
+Holds basic builder AsyncButtonBuilder. No tests yet. NNBD is supported
