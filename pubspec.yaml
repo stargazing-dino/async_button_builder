@@ -1,6 +1,6 @@
 name: async_button_builder
 description: A builder to wrap around buttons that handles loading and disabled state
-version: 0.0.1-nullsafety.1
+version: 0.0.1-nullsafety.2
 homepage: https://github.com/Nolence/async_button_builder
 
 environment:
@@ -14,5 +14,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: ^1.10.0-nullsafety.3
 
 flutter:

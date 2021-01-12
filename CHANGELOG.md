@@ -1,3 +1,7 @@
+## [0.0.1-nullsafety.2] - 2021-01-12
+
+Adds analysis options and removes unnecessary typedef
+
 ## [0.0.1-nullsafety.1] - 2021-01-12
 
 Adds docs to parameters and removes use of unnecessary undescore internal variables.
