@@ -64,3 +64,42 @@ Material(
 ),
 ```
 
+To listen to the loading state, you can pass through a `isLoading` `ValueNotifier` to AsyncButtonBuilder. The value will be listened to inside the builder. You can also use this value to set the initial state of the button or change it programatically depending on your requirements.
+
+```dart
+class Example extends StatefulWidget {
+  @override
+  _ExampleState createState() => _ExampleState();
+}
+
+class _ExampleState extends State<Example> {
+  final isLoading = ValueNotifier(false);
+
+  @override
+  Widget build(BuildContext context) {
+    return AsyncButtonBuilder(
+      child: Text('Click Me'),
+      isLoading: isLoading,
+      onPressed: () async {
+        await Future.delayed(Duration(seconds: 1));
+      },
+      builder: (context, child, callback) {
+        // This value is only listened to inside of `builder`
+        print(isLoading.value);
+
+        return OutlinedButton(
+          child: child,
+          onPressed: callback,
+          style: ButtonStyle(
+            tapTargetSize: isLoading.value
+                ? MaterialTapTargetSize.shrinkWrap
+                : MaterialTapTargetSize.padded,
+          ),
+        );
+      },
+    );
+  }
+}
+```
+
+Issues and PR's welcome

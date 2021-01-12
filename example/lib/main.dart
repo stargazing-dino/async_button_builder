@@ -1,4 +1,5 @@
 import 'package:async_button_builder/async_button_builder.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -14,7 +15,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final isLoading = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +44,7 @@ class MyHomePage extends StatelessWidget {
                 return TextButton(
                   child: child,
                   onPressed: callback,
+                  style: ButtonStyle(),
                 );
               },
             ),
@@ -57,14 +66,23 @@ class MyHomePage extends StatelessWidget {
             Text('Custom Outline Button:'),
             AsyncButtonBuilder(
               child: Text('Click Me'),
+              isLoading: isLoading,
               loadingWidget: Text('Loading...'),
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
               },
               builder: (context, child, callback) {
-                return OutlineButton(
+                // This value is only listened to inside of `builder`
+                print(isLoading.value);
+
+                return OutlinedButton(
                   child: child,
                   onPressed: callback,
+                  style: ButtonStyle(
+                    tapTargetSize: isLoading.value
+                        ? MaterialTapTargetSize.shrinkWrap
+                        : MaterialTapTargetSize.padded,
+                  ),
                 );
               },
             ),

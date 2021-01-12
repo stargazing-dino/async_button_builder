@@ -30,7 +30,7 @@ class AsyncButtonBuilder extends StatefulWidget {
   final AsyncCallback onPressed;
 
   /// This is used to manually drive the state of the loading button.
-  final bool? isLoading;
+  final ValueNotifier<bool>? isLoading;
 
   /// The widget used to replace the [child] when the button is in a loading
   /// state. If this is null the default widget is:
@@ -80,18 +80,18 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   void initState() {
-    isLoading = widget.isLoading ?? false;
+    isLoading = widget.isLoading?.value ?? false;
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant AsyncButtonBuilder oldWidget) {
-    if (widget.isLoading != oldWidget.isLoading) {
+    if (widget.isLoading?.value != oldWidget.isLoading?.value) {
       final loading = widget.isLoading;
 
       if (loading != null) {
         setState(() {
-          isLoading = loading;
+          isLoading = loading.value;
         });
       }
     }
@@ -101,6 +101,8 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   Widget build(BuildContext context) {
+    // TODO: All of these values can be memoized and only updated when their
+    // corresponding field value changes. This would be easier in hooks...
     final color = widget.valueColor;
     final padding = widget.padding;
     final loadingPadding = widget.loadingPadding;
@@ -125,12 +127,13 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
       context,
       AnimatedSize(
         duration: widget.duration,
-        vsync: this,
         child: isLoading ? loadingWidget : child,
+        vsync: this,
       ),
       isLoading
           ? null
           : () async {
+              widget.isLoading?.value = true;
               setState(() {
                 isLoading = true;
               });
@@ -141,6 +144,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                 rethrow;
               } finally {
                 if (mounted) {
+                  widget.isLoading?.value = false;
                   setState(() {
                     isLoading = false;
                   });

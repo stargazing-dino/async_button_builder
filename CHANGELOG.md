@@ -1,3 +1,7 @@
+## [0.1.0-nullsafety.0] - 2021-01-12
+
+Replaces the bool type of isLoading for a ValueNotifier<bool>.
+
 ## [0.0.1-nullsafety.2] - 2021-01-12
 
 Adds analysis options and removes unnecessary typedef
