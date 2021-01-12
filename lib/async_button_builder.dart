@@ -10,21 +10,50 @@ typedef _AsyncWidgetBuilder = Widget Function(
 class AsyncButtonBuilder extends StatefulWidget {
   final _AsyncWidgetBuilder builder;
 
+  /// The child of the button. In the case of an [IconButton], this can be a an
+  /// [Icon]. For a [TextButton], a [Text].
+  ///
+  /// This child will be animated between for the [loadingWidget] or default
+  /// [CircularProgressIndicator] when the asynchronous [onPressed] is called.
+  /// The animation will take place over [duration].
   final Widget child;
 
+  /// The animation's duration between [child] and [loadingWidget] using
+  /// [AnimatedSize].
   final Duration duration;
 
+  /// A callback that runs the async task. This is wrapped in order to begin
+  /// the button's internal `isLoading` before and after the operation
+  /// completes.
   final AsyncCallback onPressed;
 
-  final bool? _isLoading;
+  /// This is used to manually drive the state of the loading button.
+  final bool? isLoading;
 
-  final Widget? _loadingWidget;
+  /// The widget used to replace the [child] when the button is in a loading
+  /// state. If this is null the default widget is:
+  ///
+  /// SizedBox(
+  ///   height: 16.0,
+  ///   width: 16.0,
+  ///   child: CircularProgressIndicator(
+  ///     valueColor: valueColor,
+  ///   ),
+  /// )
+  final Widget? loadingWidget;
 
-  final Color? _valueColor;
+  /// This color changes the color of the default loading widget k-- a
+  /// [CircularProgressIndicator].
+  final Color? valueColor;
 
-  final EdgeInsets? _padding;
+  /// Optional padding around the child. This is useful if you are creating
+  /// your own button with [Material] and need padding around the inner child.
+  final EdgeInsets? padding;
 
-  final EdgeInsets? _loadingPadding;
+  /// Optional padding around the loading widget. This is useful if you are
+  /// creating your own button with [Material] and need a seperate padding
+  /// around the loading indicator unequal to the child's [padding].
+  final EdgeInsets? loadingPadding;
 
   const AsyncButtonBuilder({
     Key? key,
@@ -32,17 +61,12 @@ class AsyncButtonBuilder extends StatefulWidget {
     required this.child,
     required this.onPressed,
     this.duration = const Duration(milliseconds: 250),
-    bool? isLoading,
-    Widget? loadingWidget,
-    Color? valueColor,
-    EdgeInsets? padding,
-    EdgeInsets? loadingPadding,
-  })  : _loadingWidget = loadingWidget,
-        _isLoading = isLoading,
-        _valueColor = valueColor,
-        _padding = padding,
-        _loadingPadding = loadingPadding,
-        super(key: key);
+    this.isLoading,
+    this.loadingWidget,
+    this.valueColor,
+    this.padding,
+    this.loadingPadding,
+  }) : super(key: key);
 
   @override
   _AsyncButtonBuilderState createState() => _AsyncButtonBuilderState();
@@ -54,14 +78,14 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   void initState() {
-    isLoading = widget._isLoading ?? false;
+    isLoading = widget.isLoading ?? false;
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant AsyncButtonBuilder oldWidget) {
-    if (widget._isLoading != oldWidget._isLoading) {
-      final loading = widget._isLoading;
+    if (widget.isLoading != oldWidget.isLoading) {
+      final loading = widget.isLoading;
 
       if (loading != null) {
         setState(() {
@@ -75,15 +99,15 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget._valueColor;
-    final padding = widget._padding;
-    final loadingPadding = widget._loadingPadding;
+    final color = widget.valueColor;
+    final padding = widget.padding;
+    final loadingPadding = widget.loadingPadding;
     final valueColor =
         color == null ? null : AlwaysStoppedAnimation<Color>(color);
     final child = padding == null
         ? widget.child
         : Padding(padding: padding, child: widget.child);
-    var loadingWidget = widget._loadingWidget ??
+    var loadingWidget = widget.loadingWidget ??
         SizedBox(
           height: 16.0,
           width: 16.0,
