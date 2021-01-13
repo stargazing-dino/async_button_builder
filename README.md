@@ -22,7 +22,7 @@ AsyncButtonBuilder(
   onPressed: () async {
     await Future.delayed(Duration(seconds: 1));
   },
-  builder: (context, child, callback) {
+  builder: (context, child, callback, _) {
     return TextButton(
       child: child,
       onPressed: callback,
@@ -31,9 +31,31 @@ AsyncButtonBuilder(
 ),
 ```
 
+The fourth value in the builder allows you listen to the loading state. This can be used to conditionally style the button.
+
+```dart
+AsyncButtonBuilder(
+  child: Text('Click Me'),
+  onPressed: () async {
+    await Future.delayed(Duration(seconds: 1));
+  },
+  builder: (context, child, callback, isLoading) {
+    return OutlinedButton(
+      child: child,
+      onPressed: callback,
+      style: ButtonStyle(
+        tapTargetSize: isLoading.value
+            ? MaterialTapTargetSize.shrinkWrap
+            : MaterialTapTargetSize.padded,
+      ),
+    );
+  },
+),
+```
+
 You can also change the loading indicator with anything you prefer using the `loadingWidget` field. By default it uses a `CircularProgressIndicator`.
 
-For a custom button, you can specify properties such as `padding` and `loadingPadding`.
+For a custom button, you can also specify properties such as `padding` and `loadingPadding`. These are convenience fields and the same result can be achieved by instead wrapping `child` and `loadingWidget` in `Padding`s.
 
 
 ```dart
@@ -54,7 +76,7 @@ Material(
     onPressed: () async {
       await Future.delayed(Duration(seconds: 1));
     },
-    builder: (context, child, callback) {
+    builder: (context, child, callback, _) {
       return InkWell(
         child: child,
         onTap: callback,
@@ -64,42 +86,22 @@ Material(
 ),
 ```
 
-To listen to the loading state, you can pass through a `isLoading` `ValueNotifier` to AsyncButtonBuilder. The value will be listened to inside the builder. You can also use this value to set the initial state of the button or change it programatically depending on your requirements.
+If you need to drive the value of isLoading externally you can pass your value to the field `isLoading`.
 
 ```dart
-class Example extends StatefulWidget {
-  @override
-  _ExampleState createState() => _ExampleState();
-}
-
-class _ExampleState extends State<Example> {
-  final isLoading = ValueNotifier(false);
-
-  @override
-  Widget build(BuildContext context) {
-    return AsyncButtonBuilder(
-      child: Text('Click Me'),
-      isLoading: isLoading,
-      onPressed: () async {
-        await Future.delayed(Duration(seconds: 1));
-      },
-      builder: (context, child, callback) {
-        // This value is only listened to inside of `builder`
-        print(isLoading.value);
-
-        return OutlinedButton(
-          child: child,
-          onPressed: callback,
-          style: ButtonStyle(
-            tapTargetSize: isLoading.value
-                ? MaterialTapTargetSize.shrinkWrap
-                : MaterialTapTargetSize.padded,
-          ),
-        );
-      },
+AsyncButtonBuilder(
+  child: Text('Click Me'),
+  isLoading: false,
+  onPressed: () async {
+    await Future.delayed(Duration(seconds: 1));
+  },
+  builder: (context, child, callback, _) {
+    return OutlinedButton(
+      child: child,
+      onPressed: callback,
     );
-  }
-}
+  },
+),
 ```
 
 Issues and PR's welcome
