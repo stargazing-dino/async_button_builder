@@ -1,3 +1,7 @@
+## [1.0.0-nullsafety.0] - 2021-01-12
+
+Breaking. Adds a fourth argument of loading to the builder. This removes the value notifier that was difficult or confusing to manage in actual usage in my use cases. The argument isLoading is now a `bool`. This also adds a `disabled` field in order to set that on construction.
+
 ## [0.1.0-nullsafety.0] - 2021-01-12
 
 Replaces the bool type of isLoading for a ValueNotifier<bool>.

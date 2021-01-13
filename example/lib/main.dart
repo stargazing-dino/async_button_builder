@@ -1,5 +1,4 @@
 import 'package:async_button_builder/async_button_builder.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -15,14 +14,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final isLoading = ValueNotifier(false);
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
               },
-              builder: (context, child, callback) {
+              builder: (context, child, callback, _) {
                 return TextButton(
                   child: child,
                   onPressed: callback,
@@ -55,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
               },
-              builder: (context, child, callback) {
+              builder: (context, child, callback, _) {
                 return ElevatedButton(
                   child: child,
                   onPressed: callback,
@@ -66,20 +58,18 @@ class _MyHomePageState extends State<MyHomePage> {
             Text('Custom Outline Button:'),
             AsyncButtonBuilder(
               child: Text('Click Me'),
-              isLoading: isLoading,
               loadingWidget: Text('Loading...'),
+              // Change me to see value change
+              isLoading: true,
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
               },
-              builder: (context, child, callback) {
-                // This value is only listened to inside of `builder`
-                print(isLoading.value);
-
+              builder: (context, child, callback, isLoading) {
                 return OutlinedButton(
                   child: child,
                   onPressed: callback,
                   style: ButtonStyle(
-                    tapTargetSize: isLoading.value
+                    tapTargetSize: isLoading
                         ? MaterialTapTargetSize.shrinkWrap
                         : MaterialTapTargetSize.padded,
                   ),
@@ -94,19 +84,21 @@ class _MyHomePageState extends State<MyHomePage> {
               shape: StadiumBorder(),
               child: AsyncButtonBuilder(
                 valueColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
                 loadingPadding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Click Me',
-                  style: TextStyle(color: Colors.white),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  child: Text(
+                    'Click Me',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 onPressed: () async {
                   await Future.delayed(Duration(seconds: 1));
                 },
-                builder: (context, child, callback) {
+                builder: (context, child, callback, _) {
                   return InkWell(
                     child: child,
                     onTap: callback,

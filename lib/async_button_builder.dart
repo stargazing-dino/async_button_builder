@@ -10,6 +10,7 @@ class AsyncButtonBuilder extends StatefulWidget {
     BuildContext context,
     Widget child,
     AsyncCallback? callback,
+    bool isLoading,
   ) builder;
 
   /// The child of the button. In the case of an [IconButton], this can be a an
@@ -30,7 +31,14 @@ class AsyncButtonBuilder extends StatefulWidget {
   final AsyncCallback onPressed;
 
   /// This is used to manually drive the state of the loading button.
-  final ValueNotifier<bool>? isLoading;
+  ///
+  /// Until otherwise requested, if the button is not loading it will still
+  /// respond to presses and change the internal `isLoading`. In that case,
+  /// this `isLoading` will not match the actual one of the widget.
+  final bool isLoading;
+
+  /// This is used to manually drive the disabled state of the button.
+  final bool disabled;
 
   /// The widget used to replace the [child] when the button is in a loading
   /// state. If this is null the default widget is:
@@ -44,8 +52,7 @@ class AsyncButtonBuilder extends StatefulWidget {
   /// )
   final Widget? loadingWidget;
 
-  /// This color changes the color of the default loading widget k-- a
-  /// [CircularProgressIndicator].
+  /// This changes the color of the default [CircularProgressIndicator].
   final Color? valueColor;
 
   /// Optional padding around the child. This is useful if you are creating
@@ -59,15 +66,16 @@ class AsyncButtonBuilder extends StatefulWidget {
 
   const AsyncButtonBuilder({
     Key? key,
-    required this.builder,
     required this.child,
     required this.onPressed,
+    required this.builder,
     this.duration = const Duration(milliseconds: 250),
-    this.isLoading,
-    this.loadingWidget,
-    this.valueColor,
+    this.isLoading = false,
+    this.disabled = false,
     this.padding,
+    this.loadingWidget,
     this.loadingPadding,
+    this.valueColor,
   }) : super(key: key);
 
   @override
@@ -80,20 +88,16 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   void initState() {
-    isLoading = widget.isLoading?.value ?? false;
+    isLoading = widget.isLoading;
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant AsyncButtonBuilder oldWidget) {
-    if (widget.isLoading?.value != oldWidget.isLoading?.value) {
-      final loading = widget.isLoading;
-
-      if (loading != null) {
-        setState(() {
-          isLoading = loading.value;
-        });
-      }
+    if (widget.isLoading != oldWidget.isLoading) {
+      setState(() {
+        isLoading = widget.isLoading;
+      });
     }
 
     super.didUpdateWidget(oldWidget);
@@ -101,8 +105,6 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: All of these values can be memoized and only updated when their
-    // corresponding field value changes. This would be easier in hooks...
     final color = widget.valueColor;
     final padding = widget.padding;
     final loadingPadding = widget.loadingPadding;
@@ -130,27 +132,30 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
         child: isLoading ? loadingWidget : child,
         vsync: this,
       ),
-      isLoading
+      widget.disabled
           ? null
-          : () async {
-              widget.isLoading?.value = true;
-              setState(() {
-                isLoading = true;
-              });
-
-              try {
-                await widget.onPressed();
-              } catch (error) {
-                rethrow;
-              } finally {
-                if (mounted) {
-                  widget.isLoading?.value = false;
+          : isLoading
+              ? null
+              : () async {
+                  // FIXME: I might not want to set isLoading if we're being
+                  // driven by widget.isLoading
                   setState(() {
-                    isLoading = false;
+                    isLoading = true;
                   });
-                }
-              }
-            },
+
+                  try {
+                    await widget.onPressed();
+                  } catch (error) {
+                    rethrow;
+                  } finally {
+                    if (mounted) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+                  }
+                },
+      isLoading,
     );
   }
 }
