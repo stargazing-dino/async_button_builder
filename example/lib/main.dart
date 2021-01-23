@@ -36,7 +36,6 @@ class MyHomePage extends StatelessWidget {
                 return TextButton(
                   child: child,
                   onPressed: callback,
-                  style: ButtonStyle(),
                 );
               },
             ),
@@ -59,19 +58,25 @@ class MyHomePage extends StatelessWidget {
             AsyncButtonBuilder(
               child: Text('Click Me'),
               loadingWidget: Text('Loading...'),
-              // Change me to see value change
-              isLoading: true,
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
+
+                throw 'shucks';
               },
-              builder: (context, child, callback, isLoading) {
+              builder: (context, child, callback, buttonState) {
+                final buttonColor = buttonState.when(
+                  idling: () => Colors.pink,
+                  loading: () => Colors.yellow,
+                  completing: () => Colors.deepPurple,
+                  erroring: () => Colors.blueGrey,
+                );
+
                 return OutlinedButton(
                   child: child,
                   onPressed: callback,
-                  style: ButtonStyle(
-                    tapTargetSize: isLoading
-                        ? MaterialTapTargetSize.shrinkWrap
-                        : MaterialTapTargetSize.padded,
+                  style: OutlinedButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: buttonColor,
                   ),
                 );
               },
@@ -83,8 +88,6 @@ class MyHomePage extends StatelessWidget {
               color: Colors.lightBlue,
               shape: StadiumBorder(),
               child: AsyncButtonBuilder(
-                valueColor: Colors.white,
-                loadingPadding: const EdgeInsets.all(8.0),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:async_button_builder/src/button_state/button_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +13,7 @@ class AsyncButtonBuilder extends StatefulWidget {
     BuildContext context,
     Widget child,
     AsyncCallback? callback,
-    bool isLoading,
+    ButtonState buttonState,
   ) builder;
 
   /// The child of the button. In the case of an [IconButton], this can be a an
@@ -30,12 +33,13 @@ class AsyncButtonBuilder extends StatefulWidget {
   /// completes.
   final AsyncCallback onPressed;
 
-  /// This is used to manually drive the state of the loading button.
+  /// This is used to manually drive the state of the loading button thus
+  /// initiating the corresponding animation and button state
   ///
   /// Until otherwise requested, if the button is not loading it will still
   /// respond to presses and change the internal `isLoading`. In that case,
   /// this `isLoading` will not match the actual one of the widget.
-  final bool isLoading;
+  final ButtonState buttonState;
 
   /// This is used to manually drive the disabled state of the button.
   final bool disabled;
@@ -50,19 +54,35 @@ class AsyncButtonBuilder extends StatefulWidget {
   ///     valueColor: valueColor,
   ///   ),
   /// )
-  final Widget? loadingWidget;
+  final Widget loadingWidget;
 
-  /// This changes the color of the default [CircularProgressIndicator].
-  final Color? valueColor;
+  final AnimatedSwitcherTransitionBuilder idlingTransitionBuilder;
 
-  /// Optional padding around the child. This is useful if you are creating
-  /// your own button with [Material] and need padding around the inner child.
-  final EdgeInsets? padding;
+  final AnimatedSwitcherTransitionBuilder loadingTransitionBuilder;
 
-  /// Optional padding around the loading widget. This is useful if you are
-  /// creating your own button with [Material] and need a seperate padding
-  /// around the loading indicator unequal to the child's [padding].
-  final EdgeInsets? loadingPadding;
+  final AnimatedSwitcherTransitionBuilder completingTransitionBuilder;
+
+  final AnimatedSwitcherTransitionBuilder erroringTransitionBuilder;
+
+  /// The widget used to replace the [child] when the button is in a completing
+  /// state. If this is null the default widget is:
+  ///
+  /// SizedBox(
+  ///   height: 16.0,
+  ///   width: 16.0,
+  ///   child: Icons(Icon.check)
+  /// )
+  final Widget completingWidget;
+
+  final Duration completingIdleTime;
+
+  final Duration erroringIdleTime;
+
+  final Widget erroringWidget;
+
+  final Curve switchInCurve;
+
+  final Curve switchOutCurve;
 
   const AsyncButtonBuilder({
     Key? key,
@@ -70,12 +90,30 @@ class AsyncButtonBuilder extends StatefulWidget {
     required this.onPressed,
     required this.builder,
     this.duration = const Duration(milliseconds: 250),
-    this.isLoading = false,
+    this.buttonState = const ButtonState.idling(),
     this.disabled = false,
-    this.padding,
-    this.loadingWidget,
-    this.loadingPadding,
-    this.valueColor,
+    this.completingIdleTime = const Duration(seconds: 1),
+    this.erroringIdleTime = const Duration(seconds: 1),
+    this.loadingWidget = const SizedBox(
+      height: 16.0,
+      width: 16.0,
+      child: CircularProgressIndicator(),
+    ),
+    this.completingWidget = const Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    this.erroringWidget = const Icon(
+      Icons.error,
+      color: Colors.red,
+    ),
+    this.loadingTransitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
+    this.idlingTransitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
+    this.completingTransitionBuilder =
+        AnimatedSwitcher.defaultTransitionBuilder,
+    this.erroringTransitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
+    this.switchInCurve = Curves.linear,
+    this.switchOutCurve = Curves.linear,
   }) : super(key: key);
 
   @override
@@ -84,19 +122,22 @@ class AsyncButtonBuilder extends StatefulWidget {
 
 class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
     with SingleTickerProviderStateMixin {
-  late bool isLoading;
+  late ButtonState buttonState;
+  late final AnimationController controller;
+  Timer? timer;
 
   @override
   void initState() {
-    isLoading = widget.isLoading;
+    buttonState = widget.buttonState;
+    // am I going to need a different controller for each animation?
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant AsyncButtonBuilder oldWidget) {
-    if (widget.isLoading != oldWidget.isLoading) {
+    if (widget.buttonState != oldWidget.buttonState) {
       setState(() {
-        isLoading = widget.isLoading;
+        buttonState = buttonState;
       });
     }
 
@@ -105,57 +146,89 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   @override
   Widget build(BuildContext context) {
-    final color = widget.valueColor;
-    final padding = widget.padding;
-    final loadingPadding = widget.loadingPadding;
-    final valueColor =
-        color == null ? null : AlwaysStoppedAnimation<Color>(color);
-    final child = padding == null
-        ? widget.child
-        : Padding(padding: padding, child: widget.child);
-    var loadingWidget = widget.loadingWidget ??
-        SizedBox(
-          height: 16.0,
-          width: 16.0,
-          child: CircularProgressIndicator(
-            valueColor: valueColor,
-          ),
-        );
-    loadingWidget = loadingPadding == null
-        ? loadingWidget
-        : Padding(padding: loadingPadding, child: loadingWidget);
-
     return widget.builder(
       context,
       AnimatedSize(
         duration: widget.duration,
-        child: isLoading ? loadingWidget : child,
         vsync: this,
+        child: AnimatedSwitcher(
+          switchInCurve: widget.switchInCurve,
+          duration: widget.duration,
+          transitionBuilder: buttonState.when(
+            idling: () => widget.idlingTransitionBuilder,
+            loading: () => widget.loadingTransitionBuilder,
+            completing: () => widget.completingTransitionBuilder,
+            erroring: () => widget.erroringTransitionBuilder,
+          ),
+          child: buttonState.when(
+            idling: () => widget.child,
+            loading: () => widget.loadingWidget,
+            completing: () => widget.completingWidget,
+            erroring: () => widget.erroringWidget,
+          ),
+        ),
       ),
       widget.disabled
           ? null
-          : isLoading
-              ? null
-              : () async {
-                  // FIXME: I might not want to set isLoading if we're being
-                  // driven by widget.isLoading
-                  setState(() {
-                    isLoading = true;
-                  });
+          : buttonState.maybeWhen(
+              idling: () => () async {
+                // FIXME: I might not want to set buttonState if we're being
+                // driven by widget.buttonState...
+                setState(() {
+                  buttonState = ButtonState.loading();
+                });
 
-                  try {
-                    await widget.onPressed();
-                  } catch (error) {
-                    rethrow;
-                  } finally {
-                    if (mounted) {
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
+                try {
+                  await widget.onPressed();
+
+                  timer?.cancel();
+
+                  if (mounted) {
+                    setState(() {
+                      buttonState = ButtonState.completing();
+                    });
+
+                    timer = Timer(
+                      widget.completingIdleTime,
+                      () {
+                        timer?.cancel();
+
+                        if (mounted) {
+                          setState(() {
+                            buttonState = ButtonState.idling();
+                          });
+                        }
+                      },
+                    );
                   }
-                },
-      isLoading,
+                } catch (error) {
+                  timer?.cancel();
+
+                  if (mounted) {
+                    setState(() {
+                      buttonState = ButtonState.erroring();
+                    });
+
+                    timer = Timer(
+                      widget.erroringIdleTime,
+                      () {
+                        timer?.cancel();
+
+                        if (mounted) {
+                          setState(() {
+                            buttonState = ButtonState.idling();
+                          });
+                        }
+                      },
+                    );
+                  }
+
+                  rethrow;
+                }
+              },
+              orElse: () => null,
+            ),
+      buttonState,
     );
   }
 }
