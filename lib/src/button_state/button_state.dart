@@ -10,9 +10,10 @@ part 'button_state.freezed.dart';
 ///
 /// ```dart
 /// final buttonColor = buttonState.when(
-///   normal: () => Colors.pink,
-///   loading: () => Colors.red,
+///   idling: () => Colors.pink,
+///   loading: () => Colors.blue,
 ///   completing: () => Colors.green,
+///   erroring: () => Colors.red,
 /// );
 /// ```
 /// {@end-tool}
@@ -24,7 +25,7 @@ part 'button_state.freezed.dart';
 ///
 /// ```dart
 /// final buttonColor = buttonState.maybeWhen(
-///   normal: () => Colors.pink,
+///   idling: () => Colors.pink,
 ///   orElse: () => Colors.red,
 /// );
 /// ```

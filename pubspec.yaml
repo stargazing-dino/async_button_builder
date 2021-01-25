@@ -1,6 +1,6 @@
 name: async_button_builder
 description: A builder to wrap around buttons that handles loading and disabled state
-version: 1.0.0-nullsafety.0
+version: 2.0.0-dev.1
 homepage: https://github.com/Nolence/async_button_builder
 
 environment:
