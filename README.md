@@ -1,13 +1,6 @@
 # async_button_builder
 
-## This is a pre release and I'd like suggestions on naming, usability, further improvements. Thank you!
-
-A builder that adds loading, disabled, errored and completed states on top of buttons that perform asynchronous tasks. It can be used with most any button or even on top of a custom Material button. It includes fluid animation between states as well using `AnimatedSize` as well as the possibility to define your own transition builder.
-
-![An image of the various example loading buttons](/screenshots/ezgif-1-492fa074abc6.gif?raw=true)
-<!-- <p>  
- <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-1-492fa074abc6.gif?raw=true"/>
-</p> -->
+A builder that adds loading, disabled, errored and completed states on top of buttons that perform asynchronous tasks. It can be used with most any button or even on top of a custom Material button. It includes fluid animation between states as well using `AnimatedSize` in combination with `AnimatedSwitcher` which gives possibility to define your own transitions.
 
 ## Getting Started
 
@@ -34,30 +27,44 @@ AsyncButtonBuilder(
 ),
 ```
 
+<p>  
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-61c436edaec2.gif?raw=true"/>
+</p>
+
 The fourth value in the builder allows you listen to the loading state. This can be used to conditionally style the button. This package depends `freezed` in order to create a sealed union to better handle the possible states.
 
 ```dart
 AsyncButtonBuilder(
   child: Text('Click Me'),
+  loadingWidget: Text('Loading...'),
   onPressed: () async {
     await Future.delayed(Duration(seconds: 1));
+
+    throw 'shucks';
   },
-  builder: (context, child, callback, state) {
-    return ElevatedButton(
+  builder: (context, child, callback, buttonState) {
+    final buttonColor = buttonState.when(
+      idle: () => Colors.yellow[200],
+      loading: () => Colors.grey,
+      success: () => Colors.orangeAccent,
+      error: () => Colors.orange,
+    );
+
+    return OutlinedButton(
       child: child,
       onPressed: callback,
-      style: ElevatedButton.styleFrom(
-        primary: state.when(
-          idling: () => Colors.pink,
-          loading: () => Colors.grey,
-          completing: () => Colors.pinkAccent,
-          erroring: () => Colors.red[100],
-        ),
+      style: OutlinedButton.styleFrom(
+        primary: Colors.black,
+        backgroundColor: buttonColor,
       ),
     );
   },
 ),
 ```
+
+<p>  
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-a971c6afaabf.gif?raw=true"/>
+</p>
 
 You can also drive the state of the button yourself using the  `buttonState` field:
 
@@ -75,8 +82,7 @@ AsyncButtonBuilder(
 AsyncButtonBuilder(
   child: Padding(
     // Value keys are important as otherwise our custom transitions
-    // will have no way to differentiate between children. This is not
-    // specific to this library but Flutter's `AnimatedSwitcher`.
+    // will have no way to differentiate between children.
     key: ValueKey('foo'),
     padding: const EdgeInsets.symmetric(
       horizontal: 16.0,
@@ -98,7 +104,7 @@ AsyncButtonBuilder(
       ),
     ),
   ),
-  completingWidget: Padding(
+  successWidget: Padding(
     key: ValueKey('foobar'),
     padding: const EdgeInsets.all(4.0),
     child: Icon(
@@ -111,8 +117,6 @@ AsyncButtonBuilder(
   },
   loadingSwitchInCurve: Curves.bounceInOut,
   loadingTransitionBuilder: (child, animation) {
-    // The loading indicator will come up from the button using a
-    // `bounceInOut` curve.
     return SlideTransition(
       position: Tween<Offset>(
         begin: Offset(0, 1.0),
@@ -124,7 +128,7 @@ AsyncButtonBuilder(
   builder: (context, child, callback, state) {
     return Material(
       color: state.maybeWhen(
-        completing: () => Colors.purple[100],
+        success: () => Colors.purple[100],
         orElse: () => Colors.blue,
       ),
       // This prevents the loading indicator showing below the
@@ -139,5 +143,9 @@ AsyncButtonBuilder(
   },
 ),
 ```
+
+<p>  
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-a971c6afaabf.gif?raw=true"/>
+</p>
 
 Issues and PR's welcome

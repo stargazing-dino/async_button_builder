@@ -22,9 +22,8 @@ class MyHomePage extends StatelessWidget {
       body: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Spacer(),
             Divider(),
             Text('Text Button:'),
             AsyncButtonBuilder(
@@ -65,10 +64,10 @@ class MyHomePage extends StatelessWidget {
               },
               builder: (context, child, callback, buttonState) {
                 final buttonColor = buttonState.when(
-                  idling: () => Colors.yellow[200],
+                  idle: () => Colors.yellow[200],
                   loading: () => Colors.grey,
-                  completing: () => Colors.orangeAccent,
-                  erroring: () => Colors.orange,
+                  success: () => Colors.orangeAccent,
+                  error: () => Colors.orange,
                 );
 
                 return OutlinedButton(
@@ -88,7 +87,7 @@ class MyHomePage extends StatelessWidget {
               child: Padding(
                 // Value keys are important as otherwise our custom transitions
                 // will have no way to differentiate between children.
-                key: ValueKey('lust'),
+                key: ValueKey('foo'),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 8.0,
@@ -99,7 +98,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
               loadingWidget: Padding(
-                key: ValueKey('envy'),
+                key: ValueKey('bar'),
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   height: 16.0,
@@ -109,8 +108,8 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              completingWidget: Padding(
-                key: ValueKey('sloth'),
+              successWidget: Padding(
+                key: ValueKey('foobar'),
                 padding: const EdgeInsets.all(4.0),
                 child: Icon(
                   Icons.check,
@@ -133,7 +132,7 @@ class MyHomePage extends StatelessWidget {
               builder: (context, child, callback, state) {
                 return Material(
                   color: state.maybeWhen(
-                    completing: () => Colors.purple[100],
+                    success: () => Colors.purple[100],
                     orElse: () => Colors.blue,
                   ),
                   // This prevents the loading indicator showing below the
@@ -148,7 +147,6 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             Divider(),
-            Spacer(),
           ],
         ),
       ),

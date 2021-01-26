@@ -1,3 +1,6 @@
+## [2.0.1-nullsafety.2] - 2021-01-25
+Renames fields to better match standards of other buttons. 
+
 ## [2.0.0-dev.1] - 2021-01-25
 
 Breaking. Replaces the fourth argument with a sealed union that better allows for directly managing states, removes unnecessary arguments such as padding, adds transition builders for custom transitions. Currently still includes AnimatedSize.

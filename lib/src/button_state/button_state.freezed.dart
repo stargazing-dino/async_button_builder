@@ -13,7 +13,7 @@ T _$identity<T>(T value) => value;
 class _$ButtonStateTearOff {
   const _$ButtonStateTearOff();
 
-  Idling idling() {
+  Idling idle() {
     return const Idling();
   }
 
@@ -21,12 +21,12 @@ class _$ButtonStateTearOff {
     return const Loading();
   }
 
-  Completing completing() {
-    return const Completing();
+  Succeding success() {
+    return const Succeding();
   }
 
-  Erroring erroring() {
-    return const Erroring();
+  Failing error() {
+    return const Failing();
   }
 }
 
@@ -37,32 +37,32 @@ const $ButtonState = _$ButtonStateTearOff();
 mixin _$ButtonState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idling,
+    required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() completing,
-    required TResult Function() erroring,
+    required TResult Function() success,
+    required TResult Function() error,
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idling,
+    TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? completing,
-    TResult Function()? erroring,
+    TResult Function()? success,
+    TResult Function()? error,
     required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idling,
+    required TResult Function(Idling value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Completing value) completing,
-    required TResult Function(Erroring value) erroring,
+    required TResult Function(Succeding value) success,
+    required TResult Function(Failing value) error,
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idling,
+    TResult Function(Idling value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Completing value)? completing,
-    TResult Function(Erroring value)? erroring,
+    TResult Function(Succeding value)? success,
+    TResult Function(Failing value)? error,
     required TResult orElse(),
   });
 }
@@ -105,7 +105,7 @@ class _$Idling implements Idling {
 
   @override
   String toString() {
-    return 'ButtonState.idling()';
+    return 'ButtonState.idle()';
   }
 
   @override
@@ -119,25 +119,25 @@ class _$Idling implements Idling {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idling,
+    required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() completing,
-    required TResult Function() erroring,
+    required TResult Function() success,
+    required TResult Function() error,
   }) {
-    return idling();
+    return idle();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idling,
+    TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? completing,
-    TResult Function()? erroring,
+    TResult Function()? success,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
-    if (idling != null) {
-      return idling();
+    if (idle != null) {
+      return idle();
     }
     return orElse();
   }
@@ -145,25 +145,25 @@ class _$Idling implements Idling {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idling,
+    required TResult Function(Idling value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Completing value) completing,
-    required TResult Function(Erroring value) erroring,
+    required TResult Function(Succeding value) success,
+    required TResult Function(Failing value) error,
   }) {
-    return idling(this);
+    return idle(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idling,
+    TResult Function(Idling value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Completing value)? completing,
-    TResult Function(Erroring value)? erroring,
+    TResult Function(Succeding value)? success,
+    TResult Function(Failing value)? error,
     required TResult orElse(),
   }) {
-    if (idling != null) {
-      return idling(this);
+    if (idle != null) {
+      return idle(this);
     }
     return orElse();
   }
@@ -209,10 +209,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idling,
+    required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() completing,
-    required TResult Function() erroring,
+    required TResult Function() success,
+    required TResult Function() error,
   }) {
     return loading();
   }
@@ -220,10 +220,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idling,
+    TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? completing,
-    TResult Function()? erroring,
+    TResult Function()? success,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -235,10 +235,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idling,
+    required TResult Function(Idling value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Completing value) completing,
-    required TResult Function(Erroring value) erroring,
+    required TResult Function(Succeding value) success,
+    required TResult Function(Failing value) error,
   }) {
     return loading(this);
   }
@@ -246,10 +246,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idling,
+    TResult Function(Idling value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Completing value)? completing,
-    TResult Function(Erroring value)? erroring,
+    TResult Function(Succeding value)? success,
+    TResult Function(Failing value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -264,34 +264,33 @@ abstract class Loading implements ButtonState {
 }
 
 /// @nodoc
-abstract class $CompletingCopyWith<$Res> {
-  factory $CompletingCopyWith(
-          Completing value, $Res Function(Completing) then) =
-      _$CompletingCopyWithImpl<$Res>;
+abstract class $SuccedingCopyWith<$Res> {
+  factory $SuccedingCopyWith(Succeding value, $Res Function(Succeding) then) =
+      _$SuccedingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$CompletingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $CompletingCopyWith<$Res> {
-  _$CompletingCopyWithImpl(Completing _value, $Res Function(Completing) _then)
-      : super(_value, (v) => _then(v as Completing));
+class _$SuccedingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
+    implements $SuccedingCopyWith<$Res> {
+  _$SuccedingCopyWithImpl(Succeding _value, $Res Function(Succeding) _then)
+      : super(_value, (v) => _then(v as Succeding));
 
   @override
-  Completing get _value => super._value as Completing;
+  Succeding get _value => super._value as Succeding;
 }
 
 /// @nodoc
-class _$Completing implements Completing {
-  const _$Completing();
+class _$Succeding implements Succeding {
+  const _$Succeding();
 
   @override
   String toString() {
-    return 'ButtonState.completing()';
+    return 'ButtonState.success()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Completing);
+    return identical(this, other) || (other is Succeding);
   }
 
   @override
@@ -300,25 +299,25 @@ class _$Completing implements Completing {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idling,
+    required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() completing,
-    required TResult Function() erroring,
+    required TResult Function() success,
+    required TResult Function() error,
   }) {
-    return completing();
+    return success();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idling,
+    TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? completing,
-    TResult Function()? erroring,
+    TResult Function()? success,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
-    if (completing != null) {
-      return completing();
+    if (success != null) {
+      return success();
     }
     return orElse();
   }
@@ -326,62 +325,62 @@ class _$Completing implements Completing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idling,
+    required TResult Function(Idling value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Completing value) completing,
-    required TResult Function(Erroring value) erroring,
+    required TResult Function(Succeding value) success,
+    required TResult Function(Failing value) error,
   }) {
-    return completing(this);
+    return success(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idling,
+    TResult Function(Idling value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Completing value)? completing,
-    TResult Function(Erroring value)? erroring,
+    TResult Function(Succeding value)? success,
+    TResult Function(Failing value)? error,
     required TResult orElse(),
   }) {
-    if (completing != null) {
-      return completing(this);
+    if (success != null) {
+      return success(this);
     }
     return orElse();
   }
 }
 
-abstract class Completing implements ButtonState {
-  const factory Completing() = _$Completing;
+abstract class Succeding implements ButtonState {
+  const factory Succeding() = _$Succeding;
 }
 
 /// @nodoc
-abstract class $ErroringCopyWith<$Res> {
-  factory $ErroringCopyWith(Erroring value, $Res Function(Erroring) then) =
-      _$ErroringCopyWithImpl<$Res>;
+abstract class $FailingCopyWith<$Res> {
+  factory $FailingCopyWith(Failing value, $Res Function(Failing) then) =
+      _$FailingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ErroringCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $ErroringCopyWith<$Res> {
-  _$ErroringCopyWithImpl(Erroring _value, $Res Function(Erroring) _then)
-      : super(_value, (v) => _then(v as Erroring));
+class _$FailingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
+    implements $FailingCopyWith<$Res> {
+  _$FailingCopyWithImpl(Failing _value, $Res Function(Failing) _then)
+      : super(_value, (v) => _then(v as Failing));
 
   @override
-  Erroring get _value => super._value as Erroring;
+  Failing get _value => super._value as Failing;
 }
 
 /// @nodoc
-class _$Erroring implements Erroring {
-  const _$Erroring();
+class _$Failing implements Failing {
+  const _$Failing();
 
   @override
   String toString() {
-    return 'ButtonState.erroring()';
+    return 'ButtonState.error()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Erroring);
+    return identical(this, other) || (other is Failing);
   }
 
   @override
@@ -390,25 +389,25 @@ class _$Erroring implements Erroring {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() idling,
+    required TResult Function() idle,
     required TResult Function() loading,
-    required TResult Function() completing,
-    required TResult Function() erroring,
+    required TResult Function() success,
+    required TResult Function() error,
   }) {
-    return erroring();
+    return error();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? idling,
+    TResult Function()? idle,
     TResult Function()? loading,
-    TResult Function()? completing,
-    TResult Function()? erroring,
+    TResult Function()? success,
+    TResult Function()? error,
     required TResult orElse(),
   }) {
-    if (erroring != null) {
-      return erroring();
+    if (error != null) {
+      return error();
     }
     return orElse();
   }
@@ -416,30 +415,30 @@ class _$Erroring implements Erroring {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idling,
+    required TResult Function(Idling value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Completing value) completing,
-    required TResult Function(Erroring value) erroring,
+    required TResult Function(Succeding value) success,
+    required TResult Function(Failing value) error,
   }) {
-    return erroring(this);
+    return error(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idling,
+    TResult Function(Idling value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Completing value)? completing,
-    TResult Function(Erroring value)? erroring,
+    TResult Function(Succeding value)? success,
+    TResult Function(Failing value)? error,
     required TResult orElse(),
   }) {
-    if (erroring != null) {
-      return erroring(this);
+    if (error != null) {
+      return error(this);
     }
     return orElse();
   }
 }
 
-abstract class Erroring implements ButtonState {
-  const factory Erroring() = _$Erroring;
+abstract class Failing implements ButtonState {
+  const factory Failing() = _$Failing;
 }

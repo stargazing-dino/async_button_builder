@@ -10,10 +10,10 @@ part 'button_state.freezed.dart';
 ///
 /// ```dart
 /// final buttonColor = buttonState.when(
-///   idling: () => Colors.pink,
+///   idle: () => Colors.pink,
 ///   loading: () => Colors.blue,
-///   completing: () => Colors.green,
-///   erroring: () => Colors.red,
+///   success: () => Colors.green,
+///   error: () => Colors.red,
 /// );
 /// ```
 /// {@end-tool}
@@ -25,15 +25,15 @@ part 'button_state.freezed.dart';
 ///
 /// ```dart
 /// final buttonColor = buttonState.maybeWhen(
-///   idling: () => Colors.pink,
+///   idle: () => Colors.pink,
 ///   orElse: () => Colors.red,
 /// );
 /// ```
 /// {@end-tool}
 @freezed
 abstract class ButtonState with _$ButtonState {
-  const factory ButtonState.idling() = Idling;
+  const factory ButtonState.idle() = Idling;
   const factory ButtonState.loading() = Loading;
-  const factory ButtonState.completing() = Completing;
-  const factory ButtonState.erroring() = Erroring;
+  const factory ButtonState.success() = Succeding;
+  const factory ButtonState.error() = Failing;
 }
