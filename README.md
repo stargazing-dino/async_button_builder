@@ -1,10 +1,6 @@
 # async_button_builder
 
-A builder that adds loading and disabled states on top of buttons that perform asynchronous tasks. It can be used with most any button or even on top of a custom Material button. It includes fluid animation between states as well using `AnimatedSize`.
-
-<p>  
- <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-2-22348353c16f.gif?raw=true"/>
-</p>  
+A builder that adds loading, disabled, errored and completed states on top of buttons that perform asynchronous tasks. It can be used with most any button or even on top of a custom Material button. It includes fluid animation between states as well using `AnimatedSize` in combination with `AnimatedSwitcher` which gives possibility to define your own transitions.
 
 ## Getting Started
 
@@ -31,77 +27,125 @@ AsyncButtonBuilder(
 ),
 ```
 
-The fourth value in the builder allows you listen to the loading state. This can be used to conditionally style the button.
+<p>  
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-61c436edaec2.gif?raw=true"/>
+</p>
+
+The fourth value in the builder allows you listen to the loading state. This can be used to conditionally style the button. This package depends `freezed` in order to create a sealed union to better handle the possible states.
 
 ```dart
 AsyncButtonBuilder(
   child: Text('Click Me'),
+  loadingWidget: Text('Loading...'),
   onPressed: () async {
     await Future.delayed(Duration(seconds: 1));
+
+    throw 'shucks';
   },
-  builder: (context, child, callback, isLoading) {
+  builder: (context, child, callback, buttonState) {
+    final buttonColor = buttonState.when(
+      idle: () => Colors.yellow[200],
+      loading: () => Colors.grey,
+      success: () => Colors.orangeAccent,
+      error: () => Colors.orange,
+    );
+
     return OutlinedButton(
       child: child,
       onPressed: callback,
-      style: ButtonStyle(
-        tapTargetSize: isLoading.value
-            ? MaterialTapTargetSize.shrinkWrap
-            : MaterialTapTargetSize.padded,
+      style: OutlinedButton.styleFrom(
+        primary: Colors.black,
+        backgroundColor: buttonColor,
       ),
     );
   },
 ),
 ```
 
-You can also change the loading indicator with anything you prefer using the `loadingWidget` field. By default it uses a `CircularProgressIndicator`.
+<p>  
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-a971c6afaabf.gif?raw=true"/>
+</p>
 
-For a custom button, you can also specify properties such as `padding` and `loadingPadding`. These are convenience fields and the same result can be achieved by instead wrapping `child` and `loadingWidget` in `Padding`s.
+You can also drive the state of the button yourself using the  `buttonState` field:
+
+```dart
+AsyncButtonBuilder(
+  buttonState: ButtonState.completing(),
+  // ...
+),
+```
+
+`async_button_builder` even works for custom buttons. You can define your own widgets for loading, error, and completion as well as define the transitions between them. This example is a little verbose but shows some of what's possible.
 
 
 ```dart
-Material(
-  color: Colors.lightBlue,
-  shape: StadiumBorder(),
-  child: AsyncButtonBuilder(
-    valueColor: Colors.white,
+AsyncButtonBuilder(
+  child: Padding(
+    // Value keys are important as otherwise our custom transitions
+    // will have no way to differentiate between children.
+    key: ValueKey('foo'),
     padding: const EdgeInsets.symmetric(
       horizontal: 16.0,
       vertical: 8.0,
     ),
-    loadingPadding: const EdgeInsets.all(8.0),
     child: Text(
       'Click Me',
       style: TextStyle(color: Colors.white),
     ),
-    onPressed: () async {
-      await Future.delayed(Duration(seconds: 1));
-    },
-    builder: (context, child, callback, _) {
-      return InkWell(
+  ),
+  loadingWidget: Padding(
+    key: ValueKey('bar'),
+    padding: const EdgeInsets.all(8.0),
+    child: SizedBox(
+      height: 16.0,
+      width: 16.0,
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      ),
+    ),
+  ),
+  successWidget: Padding(
+    key: ValueKey('foobar'),
+    padding: const EdgeInsets.all(4.0),
+    child: Icon(
+      Icons.check,
+      color: Colors.purpleAccent,
+    ),
+  ),
+  onPressed: () async {
+    await Future.delayed(Duration(seconds: 2));
+  },
+  loadingSwitchInCurve: Curves.bounceInOut,
+  loadingTransitionBuilder: (child, animation) {
+    return SlideTransition(
+      position: Tween<Offset>(
+        begin: Offset(0, 1.0),
+        end: Offset(0, 0),
+      ).animate(animation),
+      child: child,
+    );
+  },
+  builder: (context, child, callback, state) {
+    return Material(
+      color: state.maybeWhen(
+        success: () => Colors.purple[100],
+        orElse: () => Colors.blue,
+      ),
+      // This prevents the loading indicator showing below the
+      // button
+      clipBehavior: Clip.hardEdge,
+      shape: StadiumBorder(),
+      child: InkWell(
         child: child,
         onTap: callback,
-      );
-    },
-  ),
-),
-```
-
-If you need to drive the value of isLoading externally you can pass your value to the field `isLoading`.
-
-```dart
-AsyncButtonBuilder(
-  child: Text('Click Me'),
-  isLoading: false,
-  onPressed: () async {
-    await Future.delayed(Duration(seconds: 1));
-  },
-  builder: (context, child, callback, _) {
-    return OutlinedButton(
-      child: child,
-      onPressed: callback,
+      ),
     );
   },
 ),
 ```
+
+<p>  
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-a971c6afaabf.gif?raw=true"/>
+</p>
 
 Issues and PR's welcome

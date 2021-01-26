@@ -42,7 +42,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-nullsafety.0"
+    version: "2.0.0-dev.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -142,6 +142,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.0-nullsafety.0"
   fuchsia_remote_debug_protocol:
     dependency: transitive
     description: flutter
@@ -173,6 +180,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3-nullsafety.3"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0-nullsafety.0"
   json_rpc_2:
     dependency: transitive
     description:
@@ -389,5 +403,5 @@ packages:
     source: hosted
     version: "2.2.1"
 sdks:
-  dart: ">=2.12.0-0.0 <3.0.0"
+  dart: ">=2.12.0-0.0.dev <3.0.0"
   flutter: ">=1.17.0"
