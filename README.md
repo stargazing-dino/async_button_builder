@@ -145,7 +145,7 @@ AsyncButtonBuilder(
 ```
 
 <p>  
- <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-a971c6afaabf.gif?raw=true"/>
+ <img src="https://github.com/Nolence/async_button_builder/blob/main/screenshots/ezgif-7-4088c909ba83.gif?raw=true"/>
 </p>
 
 Issues and PR's welcome

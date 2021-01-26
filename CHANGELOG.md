@@ -1,3 +1,6 @@
+## [2.0.2-nullsafety.2] - 2021-01-25
+Fixes wrong image path
+
 ## [2.0.1-nullsafety.2] - 2021-01-25
 Renames fields to better match standards of other buttons. 
 
