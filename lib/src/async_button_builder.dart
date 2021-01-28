@@ -256,6 +256,13 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
   }
 
   @override
+  void dispose() {
+    timer?.cancel();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final loadingWidget = widget.loadingWidget ??

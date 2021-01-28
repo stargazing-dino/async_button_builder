@@ -1,3 +1,6 @@
+## [2.0.2-nullsafety.4] - 2021-01-26
+Adds tests and test coverage. Adds on dispose to cancel timer.
+
 ## [2.0.2-nullsafety.3] - 2021-01-25
 Removes dangling controller and cleans up main code up a bit
 
