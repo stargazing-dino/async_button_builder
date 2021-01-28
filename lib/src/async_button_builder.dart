@@ -236,7 +236,6 @@ class AsyncButtonBuilder extends StatefulWidget {
 class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
     with SingleTickerProviderStateMixin {
   late ButtonState buttonState;
-  late final AnimationController controller;
   Timer? timer;
 
   @override
@@ -265,8 +264,6 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
           width: 16.0,
           child: CircularProgressIndicator(),
         );
-    final successPadding = widget.successPadding;
-    final errorPadding = widget.errorPadding;
     var successWidget = widget.successWidget ??
         Icon(
           Icons.check,
@@ -277,12 +274,16 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
           Icons.error,
           color: theme.errorColor,
         );
+    final successPadding = widget.successPadding;
+    final errorPadding = widget.errorPadding;
+
     if (successPadding != null) {
       successWidget = Padding(
         padding: successPadding,
         child: successWidget,
       );
     }
+
     if (errorPadding != null) {
       errorWidget = Padding(
         padding: errorPadding,

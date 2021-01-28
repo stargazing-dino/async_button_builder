@@ -1,3 +1,6 @@
+## [2.0.2-nullsafety.3] - 2021-01-25
+Removes dangling controller and cleans up main code up a bit
+
 ## [2.0.2-nullsafety.2] - 2021-01-25
 Fixes wrong image path
 
