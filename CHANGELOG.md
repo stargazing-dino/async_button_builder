@@ -1,3 +1,6 @@
+## [2.0.2-nullsafety.5] - 2021-02-01
+Removed example integration test
+
 ## [2.0.2-nullsafety.4] - 2021-01-26
 Adds tests and test coverage. Adds on dispose to cancel timer.
 

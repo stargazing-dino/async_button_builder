@@ -42,7 +42,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.0.2-nullsafety.4"
+    version: "2.0.2-nullsafety.5"
   boolean_selector:
     dependency: transitive
     description:
