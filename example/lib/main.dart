@@ -86,7 +86,8 @@ class MyHomePage extends StatelessWidget {
             AsyncButtonBuilder(
               child: Padding(
                 // Value keys are important as otherwise our custom transitions
-                // will have no way to differentiate between children.
+                // will have no way to differentiate between children. This is a
+                // Flutter framework requirement not a library one.
                 key: ValueKey('foo'),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
