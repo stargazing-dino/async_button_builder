@@ -1,3 +1,6 @@
+## [2.0.2-nullsafety.6] - 2021-02-09
+Renamed Union classes to match that of factory constructor name (Should not be breaking).
+
 ## [2.0.2-nullsafety.5] - 2021-02-01
 Removed example integration test
 

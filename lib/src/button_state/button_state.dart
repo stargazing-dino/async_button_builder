@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'button_state.freezed.dart';
 
-/// This union class represents the state of the button in either a [Normal],
-/// [Loading] or [Completing] state. This can be considered a enum with extra
+/// This union class represents the state of the button in either a [Idling],
+/// [Loading], [Success] or [Error] state. This can be considered a enum with extra
 /// utilities for ease of use.
 ///
 /// {@tool snippet}
@@ -32,8 +32,8 @@ part 'button_state.freezed.dart';
 /// {@end-tool}
 @freezed
 abstract class ButtonState with _$ButtonState {
-  const factory ButtonState.idle() = Idling;
+  const factory ButtonState.idle() = Idle;
   const factory ButtonState.loading() = Loading;
-  const factory ButtonState.success() = Succeding;
-  const factory ButtonState.error() = Failing;
+  const factory ButtonState.success() = Success;
+  const factory ButtonState.error() = Error;
 }

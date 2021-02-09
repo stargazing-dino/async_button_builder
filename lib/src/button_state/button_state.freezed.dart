@@ -13,20 +13,20 @@ T _$identity<T>(T value) => value;
 class _$ButtonStateTearOff {
   const _$ButtonStateTearOff();
 
-  Idling idle() {
-    return const Idling();
+  Idle idle() {
+    return const Idle();
   }
 
   Loading loading() {
     return const Loading();
   }
 
-  Succeding success() {
-    return const Succeding();
+  Success success() {
+    return const Success();
   }
 
-  Failing error() {
-    return const Failing();
+  Error error() {
+    return const Error();
   }
 }
 
@@ -52,17 +52,17 @@ mixin _$ButtonState {
   });
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idle,
+    required TResult Function(Idle value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Succeding value) success,
-    required TResult Function(Failing value) error,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idle,
+    TResult Function(Idle value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Succeding value)? success,
-    TResult Function(Failing value)? error,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   });
 }
@@ -84,24 +84,24 @@ class _$ButtonStateCopyWithImpl<$Res> implements $ButtonStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $IdlingCopyWith<$Res> {
-  factory $IdlingCopyWith(Idling value, $Res Function(Idling) then) =
-      _$IdlingCopyWithImpl<$Res>;
+abstract class $IdleCopyWith<$Res> {
+  factory $IdleCopyWith(Idle value, $Res Function(Idle) then) =
+      _$IdleCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$IdlingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $IdlingCopyWith<$Res> {
-  _$IdlingCopyWithImpl(Idling _value, $Res Function(Idling) _then)
-      : super(_value, (v) => _then(v as Idling));
+class _$IdleCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
+    implements $IdleCopyWith<$Res> {
+  _$IdleCopyWithImpl(Idle _value, $Res Function(Idle) _then)
+      : super(_value, (v) => _then(v as Idle));
 
   @override
-  Idling get _value => super._value as Idling;
+  Idle get _value => super._value as Idle;
 }
 
 /// @nodoc
-class _$Idling implements Idling {
-  const _$Idling();
+class _$Idle implements Idle {
+  const _$Idle();
 
   @override
   String toString() {
@@ -110,7 +110,7 @@ class _$Idling implements Idling {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Idling);
+    return identical(this, other) || (other is Idle);
   }
 
   @override
@@ -145,10 +145,10 @@ class _$Idling implements Idling {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idle,
+    required TResult Function(Idle value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Succeding value) success,
-    required TResult Function(Failing value) error,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return idle(this);
   }
@@ -156,10 +156,10 @@ class _$Idling implements Idling {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idle,
+    TResult Function(Idle value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Succeding value)? success,
-    TResult Function(Failing value)? error,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -169,8 +169,8 @@ class _$Idling implements Idling {
   }
 }
 
-abstract class Idling implements ButtonState {
-  const factory Idling() = _$Idling;
+abstract class Idle implements ButtonState {
+  const factory Idle() = _$Idle;
 }
 
 /// @nodoc
@@ -235,10 +235,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idle,
+    required TResult Function(Idle value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Succeding value) success,
-    required TResult Function(Failing value) error,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return loading(this);
   }
@@ -246,10 +246,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idle,
+    TResult Function(Idle value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Succeding value)? success,
-    TResult Function(Failing value)? error,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -264,24 +264,24 @@ abstract class Loading implements ButtonState {
 }
 
 /// @nodoc
-abstract class $SuccedingCopyWith<$Res> {
-  factory $SuccedingCopyWith(Succeding value, $Res Function(Succeding) then) =
-      _$SuccedingCopyWithImpl<$Res>;
+abstract class $SuccessCopyWith<$Res> {
+  factory $SuccessCopyWith(Success value, $Res Function(Success) then) =
+      _$SuccessCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SuccedingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $SuccedingCopyWith<$Res> {
-  _$SuccedingCopyWithImpl(Succeding _value, $Res Function(Succeding) _then)
-      : super(_value, (v) => _then(v as Succeding));
+class _$SuccessCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
+    implements $SuccessCopyWith<$Res> {
+  _$SuccessCopyWithImpl(Success _value, $Res Function(Success) _then)
+      : super(_value, (v) => _then(v as Success));
 
   @override
-  Succeding get _value => super._value as Succeding;
+  Success get _value => super._value as Success;
 }
 
 /// @nodoc
-class _$Succeding implements Succeding {
-  const _$Succeding();
+class _$Success implements Success {
+  const _$Success();
 
   @override
   String toString() {
@@ -290,7 +290,7 @@ class _$Succeding implements Succeding {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Succeding);
+    return identical(this, other) || (other is Success);
   }
 
   @override
@@ -325,10 +325,10 @@ class _$Succeding implements Succeding {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idle,
+    required TResult Function(Idle value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Succeding value) success,
-    required TResult Function(Failing value) error,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return success(this);
   }
@@ -336,10 +336,10 @@ class _$Succeding implements Succeding {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idle,
+    TResult Function(Idle value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Succeding value)? success,
-    TResult Function(Failing value)? error,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -349,29 +349,29 @@ class _$Succeding implements Succeding {
   }
 }
 
-abstract class Succeding implements ButtonState {
-  const factory Succeding() = _$Succeding;
+abstract class Success implements ButtonState {
+  const factory Success() = _$Success;
 }
 
 /// @nodoc
-abstract class $FailingCopyWith<$Res> {
-  factory $FailingCopyWith(Failing value, $Res Function(Failing) then) =
-      _$FailingCopyWithImpl<$Res>;
+abstract class $ErrorCopyWith<$Res> {
+  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
+      _$ErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FailingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $FailingCopyWith<$Res> {
-  _$FailingCopyWithImpl(Failing _value, $Res Function(Failing) _then)
-      : super(_value, (v) => _then(v as Failing));
+class _$ErrorCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
+    implements $ErrorCopyWith<$Res> {
+  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
+      : super(_value, (v) => _then(v as Error));
 
   @override
-  Failing get _value => super._value as Failing;
+  Error get _value => super._value as Error;
 }
 
 /// @nodoc
-class _$Failing implements Failing {
-  const _$Failing();
+class _$Error implements Error {
+  const _$Error();
 
   @override
   String toString() {
@@ -380,7 +380,7 @@ class _$Failing implements Failing {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Failing);
+    return identical(this, other) || (other is Error);
   }
 
   @override
@@ -415,10 +415,10 @@ class _$Failing implements Failing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Idling value) idle,
+    required TResult Function(Idle value) idle,
     required TResult Function(Loading value) loading,
-    required TResult Function(Succeding value) success,
-    required TResult Function(Failing value) error,
+    required TResult Function(Success value) success,
+    required TResult Function(Error value) error,
   }) {
     return error(this);
   }
@@ -426,10 +426,10 @@ class _$Failing implements Failing {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Idling value)? idle,
+    TResult Function(Idle value)? idle,
     TResult Function(Loading value)? loading,
-    TResult Function(Succeding value)? success,
-    TResult Function(Failing value)? error,
+    TResult Function(Success value)? success,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -439,6 +439,6 @@ class _$Failing implements Failing {
   }
 }
 
-abstract class Failing implements ButtonState {
-  const factory Failing() = _$Failing;
+abstract class Error implements ButtonState {
+  const factory Error() = _$Error;
 }
