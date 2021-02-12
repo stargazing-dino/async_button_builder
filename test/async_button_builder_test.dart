@@ -107,4 +107,45 @@ void main() {
 
     expect(find.text('click me'), findsOneWidget);
   });
+
+  // TODO: Make it work on dropdown buttons
+  // AsyncButtonBuilder(
+  //   child: Icon(Icons.arrow_upward),
+  //   onPressed: (newValue) async {
+  //     final oldValue = dropdownValue;
+
+  //     setState(() {
+  //       dropdownValue = newValue;
+  //     });
+
+  //     await Future.delayed(Duration(seconds: 1));
+
+  //     try {
+  //       if (Random().nextBool()) {
+  //         throw 'yikes';
+  //       }
+  //     } catch (error) {
+  //       setState(() {
+  //         dropdownValue = oldValue;
+  //       });
+  //     }
+  //   },
+  //   builder: (context, child, callback, _) {
+  //     return DropdownButton<String>(
+  //       // icon: SizedBox(
+  //       //   height: 16.0,
+  //       //   width: 16.0,
+  //       //   child: CircularProgressIndicator(),
+  //       // ),
+  //       onChanged: callback,
+  //       items: ['one', 'two', 'three']
+  //           .map((value) => DropdownMenuItem(
+  //                 child: Text(value),
+  //                 value: value,
+  //               ))
+  //           .toList(),
+  //       value: dropdownValue,
+  //     );
+  //   },
+  // ),
 }

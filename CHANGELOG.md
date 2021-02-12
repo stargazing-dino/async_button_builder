@@ -1,3 +1,6 @@
+## [2.0.2-nullsafety.7] - 2021-02-12
+Added a typedef in place of inline type on function. Added doc to `builder` field
+
 ## [2.0.2-nullsafety.6] - 2021-02-09
 Renamed Union classes to match that of factory constructor name (Should not be breaking).
 

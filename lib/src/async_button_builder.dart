@@ -4,6 +4,13 @@ import 'package:async_button_builder/src/button_state/button_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+typedef AsyncButtonBuilderCallback = Widget Function(
+  BuildContext context,
+  Widget child,
+  AsyncCallback? callback,
+  ButtonState buttonState,
+);
+
 /// A `builder` that wraps a button providing disabled, loading, success and
 /// error states while retaining almost full access to the original Button's
 /// API. This is useful for any long running operations and helps better
@@ -46,12 +53,10 @@ import 'package:flutter/material.dart';
 /// {@end-tool}
 ///
 class AsyncButtonBuilder extends StatefulWidget {
-  final Widget Function(
-    BuildContext context,
-    Widget child,
-    AsyncCallback? callback,
-    ButtonState buttonState,
-  ) builder;
+  /// This builder provides the widget's [BuildContext], the variable [child]
+  /// based on button state as well as the [callback] that should be passed to
+  /// the button and the current [ButtonState]
+  final AsyncButtonBuilderCallback builder;
 
   /// The child of the button. In the case of an [IconButton], this can be a an
   /// [Icon]. For a [TextButton], a [Text].
