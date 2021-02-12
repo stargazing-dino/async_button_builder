@@ -1,3 +1,6 @@
+## [2.0.7-nullsafety.8] - 2021-02-12
+Republish so current nullsafe becomes main. My mistake
+
 ## [2.0.2-nullsafety.7] - 2021-02-12
 Added a typedef in place of inline type on function. Added doc to `builder` field
 
