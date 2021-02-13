@@ -1,3 +1,6 @@
+## [2.0.8-nullsafety.0] - 2021-02-12
+Trying to bump version again to go over stable
+
 ## [2.0.7-nullsafety.8] - 2021-02-12
 Republish so current nullsafe becomes main. My mistake
 

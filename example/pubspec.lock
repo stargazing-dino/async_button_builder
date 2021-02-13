@@ -14,7 +14,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.0.7-nullsafety.8"
+    version: "2.0.8-nullsafety.0"
   boolean_selector:
     dependency: transitive
     description:
