@@ -6,13 +6,13 @@ void main() {
   testWidgets('displays child text', (WidgetTester tester) async {
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
-        child: Text('click me'),
         onPressed: () async {
-          await Future.delayed(Duration(seconds: 1));
+          await Future<dynamic>.delayed(Duration(seconds: 1));
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
+        child: Text('click me'),
       ),
     );
 
@@ -26,14 +26,14 @@ void main() {
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         duration: duration,
-        child: Text('click me'),
         loadingWidget: Text('loading'),
         onPressed: () async {
-          await Future.delayed(Duration(seconds: 1));
+          await Future<dynamic>.delayed(Duration(seconds: 1));
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
+        child: Text('click me'),
       ),
     );
 
@@ -56,7 +56,6 @@ void main() {
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         duration: duration,
-        child: Text('click me'),
         errorWidget: Text('error'),
         onPressed: () async {
           throw ArgumentError();
@@ -64,6 +63,7 @@ void main() {
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
+        child: Text('click me'),
       ),
     );
 
@@ -86,14 +86,14 @@ void main() {
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         duration: duration,
-        child: Text('click me'),
         loadingWidget: Text('loading'),
         onPressed: () async {
-          await Future.delayed(Duration(seconds: 1));
+          await Future<dynamic>.delayed(Duration(seconds: 1));
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
+        child: Text('click me'),
       ),
     );
 

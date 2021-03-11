@@ -1,3 +1,6 @@
+## [2.0.10] - 2021-02-12
+Remove null-safety prefix as it's now in stable
+
 ## [2.0.9-nullsafety.0] - 2021-02-12
 Trying to bump version again to go over stable
 
