@@ -40,6 +40,7 @@ AsyncButtonBuilder(
   onPressed: () async {
     await Future.delayed(Duration(seconds: 1));
 
+    // See the examples file for a way to handle timeouts
     throw 'shucks';
   },
   builder: (context, child, callback, buttonState) {
