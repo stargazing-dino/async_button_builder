@@ -271,7 +271,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final loadingWidget = widget.loadingWidget ??
-        const SizedBox(
+        SizedBox(
           height: 16.0,
           width: 16.0,
           child: CircularProgressIndicator(),
@@ -326,10 +326,22 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
         error: () => widget.errorTransitionBuilder,
       ),
       child: buttonState.when(
-        idle: () => widget.child,
-        loading: () => loadingWidget,
-        success: () => successWidget,
-        error: () => errorWidget,
+        idle: () => KeyedSubtree(
+          key: const ValueKey('__idle__'),
+          child: widget.child,
+        ),
+        loading: () => KeyedSubtree(
+          key: const ValueKey('__loading__'),
+          child: loadingWidget,
+        ),
+        success: () => KeyedSubtree(
+          key: const ValueKey('__success__'),
+          child: successWidget,
+        ),
+        error: () => KeyedSubtree(
+          key: const ValueKey('__error__'),
+          child: errorWidget,
+        ),
       ),
     );
 

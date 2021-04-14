@@ -1,4 +1,7 @@
-## [2.0.10] - 2021-02-12
+## [2.1.1] - 2021-02-12
+ValueKeys are now no longer required in order to differentiate children
+
+## [2.1.0] - 2021-02-12
 Remove null-safety prefix as it's now in stable
 
 ## [2.0.9-nullsafety.0] - 2021-02-12

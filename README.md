@@ -1,6 +1,6 @@
 # async_button_builder
 
-A builder that adds loading, disabled, errored and completed states on top of buttons that perform asynchronous tasks. It can be used with most any button or even on top of a custom Material button. It includes fluid animation between states as well using `AnimatedSize` in combination with `AnimatedSwitcher` which gives possibility to define your own transitions.
+A builder that adds loading, disabled, errored and completed states (with fluid animation between each) on top of buttons that perform asynchronous tasks.
 
 ## Getting Started
 
@@ -81,10 +81,6 @@ AsyncButtonBuilder(
 ```dart
 AsyncButtonBuilder(
   child: Padding(
-    // Value keys are important as otherwise our custom transitions
-    // will have no way to differentiate between children. This is a
-    // Flutter framework requirement not a library one.
-    key: ValueKey('foo'),
     padding: const EdgeInsets.symmetric(
       horizontal: 16.0,
       vertical: 8.0,
@@ -95,7 +91,6 @@ AsyncButtonBuilder(
     ),
   ),
   loadingWidget: Padding(
-    key: ValueKey('bar'),
     padding: const EdgeInsets.all(8.0),
     child: SizedBox(
       height: 16.0,
@@ -106,7 +101,6 @@ AsyncButtonBuilder(
     ),
   ),
   successWidget: Padding(
-    key: ValueKey('foobar'),
     padding: const EdgeInsets.all(4.0),
     child: Icon(
       Icons.check,

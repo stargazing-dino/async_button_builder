@@ -31,7 +31,7 @@ part 'button_state.freezed.dart';
 /// ```
 /// {@end-tool}
 @freezed
-abstract class ButtonState with _$ButtonState {
+class ButtonState with _$ButtonState {
   const factory ButtonState.idle() = Idle;
   const factory ButtonState.loading() = Loading;
   const factory ButtonState.success() = Success;
