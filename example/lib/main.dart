@@ -61,6 +61,22 @@ class MyHomePage extends StatelessWidget {
                 await Future.delayed(Duration(seconds: 1));
 
                 throw 'shucks';
+
+                // If you want to add a timeout, use something similar to
+                //
+                // try {
+                //   await Future.delayed(Duration(seconds: 1))
+                //       .timeout(Duration(milliseconds: 500));
+                // } on TimeoutException catch (_) {
+                //   // Show a popup or something
+                //   rethrow;
+                // } on Exception catch (_) {
+                //   // Show a dialog or something
+                //   rethrow;
+                // }
+                //
+                // We rethrow so that async_button_builder can handle the error
+                // state
               },
               builder: (context, child, callback, buttonState) {
                 final buttonColor = buttonState.when(

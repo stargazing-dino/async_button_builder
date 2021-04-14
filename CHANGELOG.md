@@ -1,4 +1,7 @@
-## [2.1.1] - 2021-02-12
+## [2.1.1+1] - 2021-04-14
+Add documentation on how to handle timeouts
+
+## [2.1.1] - 2021-04-14
 ValueKeys are now no longer required in order to differentiate children
 
 ## [2.1.0] - 2021-02-12
