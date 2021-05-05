@@ -1,3 +1,6 @@
+## [2.1.1+2] - 2021-04-14
+Makes onpressed nullable similar to other button's behaviour
+
 ## [2.1.1+1] - 2021-04-14
 Add documentation on how to handle timeouts
 

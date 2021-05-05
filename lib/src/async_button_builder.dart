@@ -79,7 +79,7 @@ class AsyncButtonBuilder extends StatefulWidget {
   /// A callback that runs the async task. This is wrapped in order to begin
   /// the button's internal `isLoading` before and after the operation
   /// completes.
-  final AsyncCallback onPressed;
+  final AsyncCallback? onPressed;
 
   /// This is used to manually drive the state of the loading button thus
   /// initiating the corresponding animation and showing the correct button
@@ -270,6 +270,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final onPressed = widget.onPressed;
     final loadingWidget = widget.loadingWidget ??
         SizedBox(
           height: 16.0,
@@ -363,74 +364,76 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
           : switcher,
       widget.disabled
           ? null
-          : buttonState.maybeWhen(
-              idle: () => () async {
-                // I might not want to set buttonState if we're being
-                // driven by widget.buttonState...
-                setState(() {
-                  buttonState = ButtonState.loading();
-                });
+          : onPressed == null
+              ? null
+              : buttonState.maybeWhen(
+                  idle: () => () async {
+                    // I might not want to set buttonState if we're being
+                    // driven by widget.buttonState...
+                    setState(() {
+                      buttonState = ButtonState.loading();
+                    });
 
-                timer?.cancel();
+                    timer?.cancel();
 
-                try {
-                  await widget.onPressed();
+                    try {
+                      await onPressed.call();
 
-                  if (mounted) {
-                    if (widget.showSuccess) {
-                      setState(() {
-                        buttonState = ButtonState.success();
-                      });
+                      if (mounted) {
+                        if (widget.showSuccess) {
+                          setState(() {
+                            buttonState = ButtonState.success();
+                          });
 
-                      timer = Timer(
-                        widget.successDuration,
-                        () {
-                          timer?.cancel();
+                          timer = Timer(
+                            widget.successDuration,
+                            () {
+                              timer?.cancel();
 
-                          if (mounted) {
-                            setState(() {
-                              buttonState = ButtonState.idle();
-                            });
-                          }
-                        },
-                      );
-                    } else {
-                      setState(() {
-                        buttonState = ButtonState.idle();
-                      });
+                              if (mounted) {
+                                setState(() {
+                                  buttonState = ButtonState.idle();
+                                });
+                              }
+                            },
+                          );
+                        } else {
+                          setState(() {
+                            buttonState = ButtonState.idle();
+                          });
+                        }
+                      }
+                    } catch (error) {
+                      if (mounted) {
+                        if (widget.showError) {
+                          setState(() {
+                            buttonState = ButtonState.error();
+                          });
+
+                          timer = Timer(
+                            widget.errorDuration,
+                            () {
+                              timer?.cancel();
+
+                              if (mounted) {
+                                setState(() {
+                                  buttonState = ButtonState.idle();
+                                });
+                              }
+                            },
+                          );
+                        } else {
+                          setState(() {
+                            buttonState = ButtonState.idle();
+                          });
+                        }
+                      }
+
+                      rethrow;
                     }
-                  }
-                } catch (error) {
-                  if (mounted) {
-                    if (widget.showError) {
-                      setState(() {
-                        buttonState = ButtonState.error();
-                      });
-
-                      timer = Timer(
-                        widget.errorDuration,
-                        () {
-                          timer?.cancel();
-
-                          if (mounted) {
-                            setState(() {
-                              buttonState = ButtonState.idle();
-                            });
-                          }
-                        },
-                      );
-                    } else {
-                      setState(() {
-                        buttonState = ButtonState.idle();
-                      });
-                    }
-                  }
-
-                  rethrow;
-                }
-              },
-              orElse: () => null,
-            ),
+                  },
+                  orElse: () => null,
+                ),
       buttonState,
     );
   }
