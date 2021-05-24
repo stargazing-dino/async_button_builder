@@ -107,6 +107,7 @@ class _$IdleCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Idle implements Idle {
   const _$Idle();
 
@@ -197,6 +198,7 @@ class _$LoadingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Loading implements Loading {
   const _$Loading();
 
@@ -287,6 +289,7 @@ class _$SuccessCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Success implements Success {
   const _$Success();
 
@@ -377,6 +380,7 @@ class _$ErrorCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Error implements Error {
   const _$Error();
 

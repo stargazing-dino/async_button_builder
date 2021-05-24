@@ -1,3 +1,6 @@
+## [2.1.2] - 2021-05-24
+Errors from onpressed will throw with orignal call stack
+
 ## [2.1.1+2] - 2021-04-14
 Makes onpressed nullable similar to other button's behaviour
 

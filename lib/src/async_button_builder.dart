@@ -367,7 +367,8 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
           : onPressed == null
               ? null
               : buttonState.maybeWhen(
-                  idle: () => () async {
+                  idle: () => () {
+                    final completer = Completer<void>();
                     // I might not want to set buttonState if we're being
                     // driven by widget.buttonState...
                     setState(() {
@@ -376,8 +377,8 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
                     timer?.cancel();
 
-                    try {
-                      await onPressed.call();
+                    onPressed.call().then((_) {
+                      completer.complete();
 
                       if (mounted) {
                         if (widget.showSuccess) {
@@ -385,56 +386,51 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                             buttonState = ButtonState.success();
                           });
 
-                          timer = Timer(
-                            widget.successDuration,
-                            () {
-                              timer?.cancel();
-
-                              if (mounted) {
-                                setState(() {
-                                  buttonState = ButtonState.idle();
-                                });
-                              }
-                            },
-                          );
+                          setTimer(widget.successDuration);
                         } else {
                           setState(() {
                             buttonState = ButtonState.idle();
                           });
                         }
                       }
-                    } catch (error) {
+                    }).catchError((Object error, StackTrace stackTrace) {
+                      completer.completeError(error, stackTrace);
+
                       if (mounted) {
                         if (widget.showError) {
                           setState(() {
                             buttonState = ButtonState.error();
                           });
 
-                          timer = Timer(
-                            widget.errorDuration,
-                            () {
-                              timer?.cancel();
-
-                              if (mounted) {
-                                setState(() {
-                                  buttonState = ButtonState.idle();
-                                });
-                              }
-                            },
-                          );
+                          setTimer(widget.errorDuration);
                         } else {
                           setState(() {
                             buttonState = ButtonState.idle();
                           });
                         }
                       }
+                    });
 
-                      rethrow;
-                    }
+                    return completer.future;
                   },
                   orElse: () => null,
                 ),
       buttonState,
+    );
+  }
+
+  void setTimer(Duration duration) {
+    timer = Timer(
+      widget.errorDuration,
+      () {
+        timer?.cancel();
+
+        if (mounted) {
+          setState(() {
+            buttonState = ButtonState.idle();
+          });
+        }
+      },
     );
   }
 }
