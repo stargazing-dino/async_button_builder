@@ -1,3 +1,6 @@
+## [2.1.2+1] - 2021-06-12
+Fixes analysis errors so I stop getting annoying emails
+
 ## [2.1.2] - 2021-05-24
 Errors from onpressed will throw with orignal call stack
 

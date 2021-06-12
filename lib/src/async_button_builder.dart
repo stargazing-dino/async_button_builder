@@ -280,7 +280,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
     var successWidget = widget.successWidget ??
         Icon(
           Icons.check,
-          color: theme.accentColor,
+          color: theme.colorScheme.secondary,
         );
     var errorWidget = widget.errorWidget ??
         Icon(
@@ -353,7 +353,6 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
       // to figure out how to reproduce the exact behaviour of AnimatedSize
       widget.animateSize
           ? AnimatedSize(
-              vsync: this,
               duration: widget.duration,
               reverseDuration: widget.reverseDuration,
               alignment: widget.sizeAlignment,
