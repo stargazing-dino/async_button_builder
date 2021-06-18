@@ -272,7 +272,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
     final theme = Theme.of(context);
     final onPressed = widget.onPressed;
     final loadingWidget = widget.loadingWidget ??
-        SizedBox(
+        const SizedBox(
           height: 16.0,
           width: 16.0,
           child: CircularProgressIndicator(),
@@ -353,6 +353,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
       // to figure out how to reproduce the exact behaviour of AnimatedSize
       widget.animateSize
           ? AnimatedSize(
+              vsync: this,
               duration: widget.duration,
               reverseDuration: widget.reverseDuration,
               alignment: widget.sizeAlignment,
@@ -371,7 +372,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                     // I might not want to set buttonState if we're being
                     // driven by widget.buttonState...
                     setState(() {
-                      buttonState = ButtonState.loading();
+                      buttonState = const ButtonState.loading();
                     });
 
                     timer?.cancel();
@@ -382,13 +383,13 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                       if (mounted) {
                         if (widget.showSuccess) {
                           setState(() {
-                            buttonState = ButtonState.success();
+                            buttonState = const ButtonState.success();
                           });
 
                           setTimer(widget.successDuration);
                         } else {
                           setState(() {
-                            buttonState = ButtonState.idle();
+                            buttonState = const ButtonState.idle();
                           });
                         }
                       }
@@ -398,13 +399,13 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                       if (mounted) {
                         if (widget.showError) {
                           setState(() {
-                            buttonState = ButtonState.error();
+                            buttonState = const ButtonState.error();
                           });
 
                           setTimer(widget.errorDuration);
                         } else {
                           setState(() {
-                            buttonState = ButtonState.idle();
+                            buttonState = const ButtonState.idle();
                           });
                         }
                       }
@@ -426,7 +427,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
         if (mounted) {
           setState(() {
-            buttonState = ButtonState.idle();
+            buttonState = const ButtonState.idle();
           });
         }
       },

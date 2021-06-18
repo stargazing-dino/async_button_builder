@@ -7,12 +7,12 @@ void main() {
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         onPressed: () async {
-          await Future<dynamic>.delayed(Duration(seconds: 1));
+          await Future<dynamic>.delayed(const Duration(seconds: 1));
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
-        child: Text('click me'),
+        child: const Text('click me'),
       ),
     );
 
@@ -22,18 +22,18 @@ void main() {
   });
 
   testWidgets('shows loading widget', (WidgetTester tester) async {
-    final duration = Duration(milliseconds: 250);
+    const duration = Duration(milliseconds: 250);
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         duration: duration,
-        loadingWidget: Text('loading'),
+        loadingWidget: const Text('loading'),
         onPressed: () async {
-          await Future<dynamic>.delayed(Duration(seconds: 1));
+          await Future<dynamic>.delayed(const Duration(seconds: 1));
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
-        child: Text('click me'),
+        child: const Text('click me'),
       ),
     );
 
@@ -42,28 +42,28 @@ void main() {
     await tester.tap(find.byType(TextButton));
 
     // 1/10 of a second later, loading should be showing
-    await tester.pump(Duration(milliseconds: 100));
+    await tester.pump(const Duration(milliseconds: 100));
 
     expect(find.text('loading'), findsOneWidget);
 
     // Let the widget continue to settle otherwise I won't dispose timers
     // correctly. TODO: Explain why .900 is the magic number
-    await tester.pumpAndSettle(Duration(milliseconds: 900));
+    await tester.pumpAndSettle(const Duration(milliseconds: 900));
   });
 
   testWidgets('shows error widget', (WidgetTester tester) async {
-    final duration = Duration(milliseconds: 250);
+    const duration = Duration(milliseconds: 250);
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         duration: duration,
-        errorWidget: Text('error'),
+        errorWidget: const Text('error'),
         onPressed: () async {
           throw ArgumentError();
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
-        child: Text('click me'),
+        child: const Text('click me'),
       ),
     );
 
@@ -76,24 +76,24 @@ void main() {
       throwsA(isInstanceOf<ArgumentError>()),
     );
 
-    await tester.pump(Duration(milliseconds: 200));
+    await tester.pump(const Duration(milliseconds: 200));
 
     expect(find.text('error'), findsOneWidget);
   });
 
   testWidgets('Returns to child widget', (WidgetTester tester) async {
-    final duration = Duration(milliseconds: 250);
+    const duration = Duration(milliseconds: 250);
     final textButton = MaterialApp(
       home: AsyncButtonBuilder(
         duration: duration,
-        loadingWidget: Text('loading'),
+        loadingWidget: const Text('loading'),
         onPressed: () async {
-          await Future<dynamic>.delayed(Duration(seconds: 1));
+          await Future<dynamic>.delayed(const Duration(seconds: 1));
         },
         builder: (context, child, callback, state) {
           return TextButton(onPressed: callback, child: child);
         },
-        child: Text('click me'),
+        child: const Text('click me'),
       ),
     );
 
@@ -101,7 +101,7 @@ void main() {
 
     await tester.tap(find.byType(TextButton));
 
-    await tester.pump(Duration(milliseconds: 1000));
+    await tester.pump(const Duration(milliseconds: 1000));
 
     expect(find.text('loading'), findsNothing);
 

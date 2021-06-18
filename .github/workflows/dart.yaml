@@ -14,8 +14,9 @@ jobs:
     strategy:
       matrix:
         channel:
-          - dev
-          # - stable
+          # Dev currently adds a breaking change on AnimatedContainer - so no
+          # - dev
+          - stable
 
     steps:
       - uses: actions/checkout@v2

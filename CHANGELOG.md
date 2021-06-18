@@ -1,3 +1,6 @@
+## [2.1.3] - 2021-06-18
+Tests and builds against stable. flutter_lints now used in place of pedantic
+
 ## [2.1.2+1] - 2021-06-12
 Fixes analysis errors so I stop getting annoying emails
 
