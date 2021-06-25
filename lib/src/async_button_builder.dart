@@ -421,7 +421,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
 
   void setTimer(Duration duration) {
     timer = Timer(
-      widget.errorDuration,
+      duration,
       () {
         timer?.cancel();
 

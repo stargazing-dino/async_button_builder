@@ -1,3 +1,6 @@
+## [2.1.3+1] - 2021-06-25
+Was not using proper sucessDuration when setting timeouts (regression)
+
 ## [2.1.3] - 2021-06-18
 Tests and builds against stable. flutter_lints now used in place of pedantic
 
