@@ -1,4 +1,7 @@
 ## [2.1.3+1] - 2021-06-25
+Fix possibility of nested async button builders conflicting with each other due to matching keyed subtrees. In order to avoid this situation, the parent key of the async_button_builder is used in the creation of sub widgets.
+
+## [2.1.3+1] - 2021-06-25
 Was not using proper sucessDuration when setting timeouts (regression)
 
 ## [2.1.3] - 2021-06-18

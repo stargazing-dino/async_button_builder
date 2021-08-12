@@ -271,6 +271,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final onPressed = widget.onPressed;
+    final widgetKey = widget.key;
     final loadingWidget = widget.loadingWidget ??
         const SizedBox(
           height: 16.0,
@@ -289,6 +290,15 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
         );
     final successPadding = widget.successPadding;
     final errorPadding = widget.errorPadding;
+
+    // This is necessary in the case of nested async button builders.
+    // We cannot have the same __idle__, __loading__, etc. keys as they might
+    // conflict with one another.
+    String parentKeyValue = '';
+
+    if (widgetKey != null && widgetKey is ValueKey) {
+      parentKeyValue = widgetKey.value.toString();
+    }
 
     if (successPadding != null) {
       successWidget = Padding(
@@ -328,19 +338,19 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
       ),
       child: buttonState.when(
         idle: () => KeyedSubtree(
-          key: const ValueKey('__idle__'),
+          key: ValueKey('__idle__' + parentKeyValue),
           child: widget.child,
         ),
         loading: () => KeyedSubtree(
-          key: const ValueKey('__loading__'),
+          key: ValueKey('__loading__' + parentKeyValue),
           child: loadingWidget,
         ),
         success: () => KeyedSubtree(
-          key: const ValueKey('__success__'),
+          key: ValueKey('__success__' + parentKeyValue),
           child: successWidget,
         ),
         error: () => KeyedSubtree(
-          key: const ValueKey('__error__'),
+          key: ValueKey('__error__' + parentKeyValue),
           child: errorWidget,
         ),
       ),
