@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   freezed_annotation: ^0.14.2
-  async_button_core:
+  async_button_core: ^0.0.1
     
 dev_dependencies:
   flutter_test:

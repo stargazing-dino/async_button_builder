@@ -1,5 +1,7 @@
 # async_button_builder
 
+[![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
+
 A builder that adds loading, disabled, errored and completed states (with fluid animation between each) on top of buttons that perform asynchronous tasks.
 
 ## Getting Started
