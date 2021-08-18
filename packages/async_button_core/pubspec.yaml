@@ -1,0 +1,20 @@
+name: async_button_core
+description: A new Flutter package project.
+version: 0.0.1
+homepage: https://github.com/Nolence/async_button/packages/async_button_core
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  freezed_annotation: ^0.14.3
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter: null
