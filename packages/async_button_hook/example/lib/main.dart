@@ -111,7 +111,16 @@ class MyHomePage extends HookWidget {
                       child: child,
                     );
                   },
-                  child: const Text('Click Me'),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Text(
+                      'Click Me',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                   onPressed: () async {
                     await Future.delayed(const Duration(seconds: 2));
                   },
