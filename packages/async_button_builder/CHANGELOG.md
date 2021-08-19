@@ -1,3 +1,6 @@
+## [2.1.3+3] - 2021-08-12
+Have proper types exported
+
 ## [2.1.3+2] - 2021-08-12
 Fix possibility of nested async button builders conflicting with each other due to matching keyed subtrees. In order to avoid this situation, the parent key of the async_button_builder is used in the creation of sub widgets.
 
