@@ -22,19 +22,19 @@ class MyHomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textButtonResult = useAsyncButton(
+    final textAsyncButton = useAsyncButton(
       child: const Text('Click Me'),
       onPressed: () async {
         await Future.delayed(const Duration(seconds: 1));
       },
     );
-    final elevatedButtonResult = useAsyncButton(
+    final elevatedAsyncButton = useAsyncButton(
       child: const Text('Click Me'),
       onPressed: () async {
         await Future.delayed(const Duration(seconds: 1));
       },
     );
-    final customButtonResult = useAsyncButton(
+    final customAsyncButton = useAsyncButton(
       child: const Text('Click Me'),
       loadingWidget: const Text('Loading...'),
       onPressed: () async {
@@ -59,7 +59,7 @@ class MyHomePage extends HookWidget {
         // state
       },
     );
-    final buttonColor = customButtonResult.buttonState.when(
+    final buttonColor = customAsyncButton.buttonState.when(
       idle: () => Colors.yellow[200],
       loading: () => Colors.grey,
       success: () => Colors.orangeAccent,
@@ -76,20 +76,20 @@ class MyHomePage extends HookWidget {
             const Divider(),
             const Text('Text Button:'),
             TextButton(
-              child: textButtonResult.child,
-              onPressed: textButtonResult.callback,
+              child: textAsyncButton.child,
+              onPressed: textAsyncButton.callback,
             ),
             const Divider(),
             const Text('Elevated Button:'),
             ElevatedButton(
-              child: elevatedButtonResult.child,
-              onPressed: elevatedButtonResult.callback,
+              child: elevatedAsyncButton.child,
+              onPressed: elevatedAsyncButton.callback,
             ),
             const Divider(),
             const Text('Custom Outlined Button (Error):'),
             OutlinedButton(
-              child: customButtonResult.child,
-              onPressed: customButtonResult.callback,
+              child: customAsyncButton.child,
+              onPressed: customAsyncButton.callback,
               style: OutlinedButton.styleFrom(
                 primary: Colors.black,
                 backgroundColor: buttonColor,
@@ -100,7 +100,7 @@ class MyHomePage extends HookWidget {
             const SizedBox(height: 6.0),
             HookBuilder(
               builder: (context) {
-                final customButtonResult = useAsyncButton(
+                final customAsyncButton = useAsyncButton(
                   loadingSwitchInCurve: Curves.bounceInOut,
                   loadingTransitionBuilder: (child, animation) {
                     return SlideTransition(
@@ -144,7 +144,7 @@ class MyHomePage extends HookWidget {
                 );
 
                 return Material(
-                  color: customButtonResult.buttonState.maybeWhen(
+                  color: customAsyncButton.buttonState.maybeWhen(
                     success: () => Colors.purple[100],
                     orElse: () => Colors.blue,
                   ),
@@ -153,8 +153,8 @@ class MyHomePage extends HookWidget {
                   clipBehavior: Clip.hardEdge,
                   shape: const StadiumBorder(),
                   child: InkWell(
-                    child: customButtonResult.child,
-                    onTap: customButtonResult.callback,
+                    child: customAsyncButton.child,
+                    onTap: customAsyncButton.callback,
                   ),
                 );
               },
