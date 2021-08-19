@@ -1,6 +1,6 @@
 name: async_button_core
 description: A new Flutter package project.
-version: 0.0.1
+version: 0.0.1+1
 homepage: https://github.com/Nolence/async_button/packages/async_button_core
 
 environment:

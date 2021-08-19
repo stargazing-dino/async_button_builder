@@ -1,3 +1,7 @@
+## 0.0.1+1
+
+* Added better docs
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial release
