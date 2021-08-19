@@ -63,6 +63,7 @@ AsyncButtonResult useAsyncButton({
   final ticker = useSingleTickerProvider();
   final isMounted = useIsMounted();
   final context = useContext();
+  final childKey = child.key;
   final theme = Theme.of(context);
   final _loadingWidget = loadingWidget ??
       const SizedBox(
@@ -80,6 +81,15 @@ AsyncButtonResult useAsyncButton({
         Icons.error,
         color: theme.errorColor,
       );
+
+  // This is necessary in the case of nested async button builders.
+  // We cannot have the same __idle__, __loading__, etc. keys as they might
+  // conflict with one another.
+  String childKeyValue = '';
+
+  if (childKey != null && childKey is ValueKey) {
+    childKeyValue = childKey.value.toString();
+  }
 
   if (successPadding != null) {
     _successWidget = Padding(
@@ -99,39 +109,39 @@ AsyncButtonResult useAsyncButton({
     // TODO: This duration is same as size's duration. That's okay right?
     duration: duration,
     reverseDuration: reverseDuration,
-    switchInCurve: buttonState.when(
+    switchInCurve: _buttonState.value.when(
       idle: () => idleSwitchInCurve,
       loading: () => loadingSwitchInCurve,
       success: () => successSwitchInCurve,
       error: () => errorSwitchInCurve,
     ),
-    switchOutCurve: buttonState.when(
+    switchOutCurve: _buttonState.value.when(
       idle: () => idleSwitchOutCurve,
       loading: () => loadingSwitchOutCurve,
       success: () => successSwitchOutCurve,
       error: () => errorSwitchOutCurve,
     ),
-    transitionBuilder: buttonState.when(
+    transitionBuilder: _buttonState.value.when(
       idle: () => idleTransitionBuilder,
       loading: () => loadingTransitionBuilder,
       success: () => successTransitionBuilder,
       error: () => errorTransitionBuilder,
     ),
-    child: buttonState.when(
+    child: _buttonState.value.when(
       idle: () => KeyedSubtree(
-        key: const ValueKey('__idle__'),
+        key: ValueKey('__idle__' + childKeyValue),
         child: child,
       ),
       loading: () => KeyedSubtree(
-        key: const ValueKey('__loading__'),
+        key: ValueKey('__loading__' + childKeyValue),
         child: _loadingWidget,
       ),
       success: () => KeyedSubtree(
-        key: const ValueKey('__success__'),
+        key: ValueKey('__success__' + childKeyValue),
         child: _successWidget,
       ),
       error: () => KeyedSubtree(
-        key: const ValueKey('__error__'),
+        key: ValueKey('__error__' + childKeyValue),
         child: _errorWidget,
       ),
     ),
@@ -166,7 +176,7 @@ AsyncButtonResult useAsyncButton({
         ? null
         : onPressed == null
             ? null
-            : buttonState.maybeWhen(
+            : _buttonState.value.maybeWhen(
                 idle: () => () {
                   final completer = Completer<void>();
                   // I might not want to set buttonState if we're being
