@@ -1,3 +1,6 @@
+## [2.1.3+4] - 2021-08-27
+Fix home page
+
 ## [2.1.3+3] - 2021-08-12
 Have proper types exported
 

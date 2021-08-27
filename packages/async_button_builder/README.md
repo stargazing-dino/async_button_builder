@@ -1,8 +1,6 @@
-# async_button
+# async_button_builder
 
 [![melos](https://img.shields.io/badge/maintained%20with-melos-f700ff.svg?style=flat-square)](https://github.com/invertase/melos)
-
-AsyncButton offers a simple way to extend any type of button with an asynchronous aspect. It comes in two flavors that are independent (so no additional dependencies) of `builder` or `hook` pattern. Note, the hook version does rely on `flutter_hooks` for use. Either method allows adding loading, disabled, errored and completed states (with fluid animation between each) on top of buttons that perform asynchronous tasks.
 
 ## Getting Started
 
