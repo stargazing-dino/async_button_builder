@@ -11,17 +11,17 @@ packages:
   async_button_core:
     dependency: transitive
     description:
-      name: async_button_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1+2"
+      path: "../../async_button_core"
+      relative: true
+    source: path
+    version: "0.0.1+4"
   async_button_hook:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1+4"
+    version: "0.0.1+5"
   boolean_selector:
     dependency: transitive
     description:
