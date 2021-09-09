@@ -8,6 +8,30 @@ on:
     - cron:  '0 10 * * *'
 
 jobs:
+  analyze:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Git Checkout"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: "2.2.1"
+      - name: "Install Tools"
+        run: |
+          flutter pub global activate melos
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+      - name: "Dart Analyze"
+        run: |
+          melos run analyze
+      - name: "Pub Check"
+        run: |
+          melos run lint:pub
+
   flutter:
     runs-on: ubuntu-latest
 

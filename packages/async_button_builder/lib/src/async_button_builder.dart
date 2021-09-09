@@ -269,7 +269,6 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
       // to figure out how to reproduce the exact behaviour of AnimatedSize
       widget.animateSize
           ? AnimatedSize(
-              vsync: this,
               duration: widget.duration,
               reverseDuration: widget.reverseDuration,
               alignment: widget.sizeAlignment,

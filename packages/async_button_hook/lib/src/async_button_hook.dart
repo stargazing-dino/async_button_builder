@@ -60,7 +60,6 @@ AsyncButtonResult useAsyncButton({
     [buttonState],
   );
 
-  final ticker = useSingleTickerProvider();
   final isMounted = useIsMounted();
   final context = useContext();
   final childKey = child.key;
@@ -163,7 +162,6 @@ AsyncButtonResult useAsyncButton({
   return AsyncButtonResult(
     child: animateSize
         ? AnimatedSize(
-            vsync: ticker,
             duration: duration,
             reverseDuration: reverseDuration,
             alignment: sizeAlignment,
