@@ -1,3 +1,6 @@
+## 0.0.1+6 - 2021-09-08
+Fixed github actions
+
 ## 0.0.1+5 - 2021-08-31
 Trying to fix pub stuff
 
