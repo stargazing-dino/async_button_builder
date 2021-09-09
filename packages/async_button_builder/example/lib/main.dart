@@ -33,8 +33,8 @@ class MyHomePage extends StatelessWidget {
               },
               builder: (context, child, callback, _) {
                 return TextButton(
-                  child: child,
                   onPressed: callback,
+                  child: child,
                 );
               },
             ),
@@ -47,15 +47,14 @@ class MyHomePage extends StatelessWidget {
               },
               builder: (context, child, callback, _) {
                 return ElevatedButton(
-                  child: child,
                   onPressed: callback,
+                  child: child,
                 );
               },
             ),
             Divider(),
             Text('Custom Outlined Button (Error):'),
             AsyncButtonBuilder(
-              child: Text('Click Me'),
               loadingWidget: Text('Loading...'),
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
@@ -87,29 +86,20 @@ class MyHomePage extends StatelessWidget {
                 );
 
                 return OutlinedButton(
-                  child: child,
                   onPressed: callback,
                   style: OutlinedButton.styleFrom(
                     primary: Colors.black,
                     backgroundColor: buttonColor,
                   ),
+                  child: child,
                 );
               },
+              child: Text('Click Me'),
             ),
             Divider(),
             Text('Custom Material Button:'),
             const SizedBox(height: 6.0),
             AsyncButtonBuilder(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: Text(
-                  'Click Me',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
               loadingWidget: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
@@ -151,11 +141,21 @@ class MyHomePage extends StatelessWidget {
                   clipBehavior: Clip.hardEdge,
                   shape: StadiumBorder(),
                   child: InkWell(
-                    child: child,
                     onTap: callback,
+                    child: child,
                   ),
                 );
               },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
+                child: Text(
+                  'Click Me',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
             Divider(),
           ],

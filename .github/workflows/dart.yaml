@@ -32,30 +32,24 @@ jobs:
         run: |
           melos run lint:pub
 
-  flutter:
+  test:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 15
     strategy:
       matrix:
         channel:
-          # Dev currently adds a breaking change on AnimatedContainer - so no
-          # - dev
+          - dev
           - stable
-
     steps:
+      - name: "Git Checkout"
       - uses: actions/checkout@v2
+      - name: "Install Flutter"
       - uses: subosito/flutter-action@v1
         with:
           channel: ${{ matrix.channel }}
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Check format
-        run: flutter format --set-exit-if-changed .
-
-      - name: Analyze
-        run: flutter analyze
-
-      - name: Run tests
-        run: flutter test
+      - name: "Install Tools"
+        run: flutter pub global activate melos
+      - name: "Bootstrap Workspace"
+        run: melos bootstrap
+      - name: "Flutter Test"
+        run: melos run test

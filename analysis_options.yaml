@@ -11,6 +11,7 @@ analyzer:
 linter:
   rules:
     # - public_member_api_docs
+    - sort_child_properties_last
     - require_trailing_commas
     - parameter_assignments
     - only_throw_errors
