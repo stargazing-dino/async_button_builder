@@ -1,3 +1,6 @@
+## [2.1.3+8] - 2021-09-28
+Upgraded deps
+
 ## [2.1.3+7] - 2021-09-08
 Fixed github actions
 

@@ -1,6 +1,6 @@
 name: async_button_core
 description: Contains the core models and docs for the packages async_button_hook and async_button_builder
-version: 0.0.1+5
+version: 0.0.1+6
 homepage: https://github.com/Nolence/async_button/tree/main/packages/async_button_core
 
 environment:
@@ -13,9 +13,9 @@ dependencies:
   freezed_annotation: ^0.14.3
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
   build_runner: ^2.0.3
-  freezed: ^0.14.2
+  freezed: ^0.14.5
   flutter_test:
     sdk: flutter
 
