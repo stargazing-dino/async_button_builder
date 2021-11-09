@@ -159,7 +159,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
   void didUpdateWidget(covariant AsyncButtonBuilder oldWidget) {
     if (widget.buttonState != oldWidget.buttonState) {
       setState(() {
-        buttonState = buttonState;
+        buttonState = widget.buttonState;
       });
     }
 
