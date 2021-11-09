@@ -1,6 +1,6 @@
 name: async_button_hook
 description: A hook version of async_button_builder which depends on flutter_hooks
-version: 0.0.1+7
+version: 0.0.1+8
 homepage: https://github.com/Nolence/async_button/tree/main/packages/async_button_hook
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.0
-  async_button_core: ^0.0.1+6
+  async_button_core: ^0.0.1+7
 
 dev_dependencies:
   flutter_lints: ^1.0.0

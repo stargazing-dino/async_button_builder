@@ -1,3 +1,9 @@
+## [2.1.4] - 2021-09-28
+Fix manual button state changes. Credit to @iliser
+
+## [2.1.3+9] - 2021-09-28
+Upgraded deps
+
 ## [2.1.3+8] - 2021-09-28
 Upgraded deps
 
