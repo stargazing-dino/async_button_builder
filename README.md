@@ -41,7 +41,7 @@ AsyncButtonBuilder(
     await Future.delayed(Duration(seconds: 1));
 
     // See the examples file for a way to handle timeouts
-    throw 'shucks';
+    throw 'yikes';
   },
   builder: (context, child, callback, buttonState) {
     final buttonColor = buttonState.when(

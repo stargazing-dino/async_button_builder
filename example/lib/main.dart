@@ -59,7 +59,7 @@ class MyHomePage extends StatelessWidget {
               onPressed: () async {
                 await Future.delayed(Duration(seconds: 1));
 
-                throw 'shucks';
+                throw 'yikes';
 
                 // If you want to add a timeout, use something similar to
                 //

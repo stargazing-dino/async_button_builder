@@ -28,7 +28,7 @@ typedef AsyncButtonBuilderCallback = Widget Function(
 ///     onPressed: () async {
 ///       await Future.delayed(Duration(seconds: 1));
 ///
-///       throw 'shucks';
+///       throw 'yikes';
 ///     },
 ///     builder: (context, child, callback, buttonState) {
 ///       final buttonColor = buttonState.when(
