@@ -1,4 +1,4 @@
-## [3.0.0] - 2022-01-07
+## [2.2.0] - 2022-01-07
 Got rid of hook version as it was complicating a simple package and likely discouraging possible contributors.
 
 ## [2.1.4] - 2021-09-28
