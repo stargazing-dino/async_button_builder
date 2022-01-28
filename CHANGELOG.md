@@ -1,3 +1,6 @@
+## [2.2.0+1] - 2022-01-28
+Ignore .vscode, update versions and re-export button state. Credit @esenmx
+
 ## [2.2.0] - 2022-01-07
 Got rid of hook version as it was complicating a simple package and likely discouraging possible contributors.
 
