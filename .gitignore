@@ -78,3 +78,4 @@ build/
 
 
 .melos_tool/
+/pubspec.lock
