@@ -253,14 +253,12 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
         buttonState = widget.buttonState;
       });
     }
-
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
     timer?.cancel();
-
     super.dispose();
   }
 
