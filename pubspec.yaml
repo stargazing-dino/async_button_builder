@@ -1,7 +1,7 @@
 name: async_button_builder
 description: A builder to wrap around buttons that handles loading, disabled,
   error and succes states
-version: 2.2.0+1
+version: 2.3.0
 homepage: https://github.com/Nolence/async_button/tree/main/packages/async_button_builder
 
 environment:

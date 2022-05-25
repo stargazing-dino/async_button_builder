@@ -1,3 +1,7 @@
+## [2.3.0] - 2022-05-24
+- Removed freezed dependency and added new callbacks @mergehez
+- Upgrade to freezed 2 (excluding user now) @quantosapplications @esenmx
+
 ## [2.2.0+1] - 2022-01-28
 Ignore .vscode, update versions and re-export button state. Credit @esenmx
 
