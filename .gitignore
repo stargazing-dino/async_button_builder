@@ -79,3 +79,5 @@ build/
 
 .melos_tool/
 /pubspec.lock
+**/pubspec.lock
+example/pubspec.lock
