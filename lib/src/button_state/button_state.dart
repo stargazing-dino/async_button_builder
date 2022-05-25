@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 part 'button_state.freezed.dart';
 
 /// This union class represents the state of the button in either a [Idling],

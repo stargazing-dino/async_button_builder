@@ -240,6 +240,7 @@ class AsyncButtonBuilder extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AsyncButtonBuilderState createState() => _AsyncButtonBuilderState();
 }
 
@@ -341,19 +342,19 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
       ),
       child: buttonState.when(
         idle: () => KeyedSubtree(
-          key: ValueKey('__idle__' + parentKeyValue),
+          key: ValueKey('__idle__$parentKeyValue'),
           child: widget.child,
         ),
         loading: () => KeyedSubtree(
-          key: ValueKey('__loading__' + parentKeyValue),
+          key: ValueKey('__loading__$parentKeyValue'),
           child: loadingWidget,
         ),
         success: () => KeyedSubtree(
-          key: ValueKey('__success__' + parentKeyValue),
+          key: ValueKey('__success__$parentKeyValue'),
           child: successWidget,
         ),
         error: () => KeyedSubtree(
-          key: ValueKey('__error__' + parentKeyValue),
+          key: ValueKey('__error__$parentKeyValue'),
           child: errorWidget,
         ),
       ),

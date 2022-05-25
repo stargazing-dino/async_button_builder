@@ -1,35 +1,39 @@
 import 'package:async_button_builder/async_button_builder.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Async Buttons')),
+      appBar: AppBar(title: const Text('Async Buttons')),
       body: SizedBox.expand(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Divider(),
-            Text('Text Button:'),
+            const Divider(),
+            const Text('Text Button:'),
             AsyncButtonBuilder(
-              child: Text('Click Me'),
+              child: const Text('Click Me'),
               onPressed: () async {
-                await Future.delayed(Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 1));
               },
               builder: (context, child, callback, _) {
                 return TextButton(
@@ -38,12 +42,12 @@ class MyHomePage extends StatelessWidget {
                 );
               },
             ),
-            Divider(),
-            Text('Elevated Button:'),
+            const Divider(),
+            const Text('Elevated Button:'),
             AsyncButtonBuilder(
-              child: Text('Click Me'),
+              child: const Text('Click Me'),
               onPressed: () async {
-                await Future.delayed(Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 1));
               },
               builder: (context, child, callback, _) {
                 return ElevatedButton(
@@ -52,12 +56,12 @@ class MyHomePage extends StatelessWidget {
                 );
               },
             ),
-            Divider(),
-            Text('Custom Outlined Button (Error):'),
+            const Divider(),
+            const Text('Custom Outlined Button (Error):'),
             AsyncButtonBuilder(
-              loadingWidget: Text('Loading...'),
+              loadingWidget: const Text('Loading...'),
               onPressed: () async {
-                await Future.delayed(Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 1));
 
                 throw 'yikes';
 
@@ -94,14 +98,14 @@ class MyHomePage extends StatelessWidget {
                   child: child,
                 );
               },
-              child: Text('Click Me'),
+              child: const Text('Click Me'),
             ),
-            Divider(),
-            Text('Custom Material Button:'),
+            const Divider(),
+            const Text('Custom Material Button:'),
             const SizedBox(height: 6.0),
             AsyncButtonBuilder(
-              loadingWidget: Padding(
-                padding: const EdgeInsets.all(8.0),
+              loadingWidget: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: SizedBox(
                   height: 16.0,
                   width: 16.0,
@@ -110,22 +114,22 @@ class MyHomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              successWidget: Padding(
-                padding: const EdgeInsets.all(4.0),
+              successWidget: const Padding(
+                padding: EdgeInsets.all(4.0),
                 child: Icon(
                   Icons.check,
                   color: Colors.purpleAccent,
                 ),
               ),
               onPressed: () async {
-                await Future.delayed(Duration(seconds: 2));
+                await Future.delayed(const Duration(seconds: 2));
               },
               loadingSwitchInCurve: Curves.bounceInOut,
               loadingTransitionBuilder: (child, animation) {
                 return SlideTransition(
                   position: Tween<Offset>(
-                    begin: Offset(0, 1.0),
-                    end: Offset(0, 0),
+                    begin: const Offset(0, 1.0),
+                    end: const Offset(0, 0),
                   ).animate(animation),
                   child: child,
                 );
@@ -139,15 +143,15 @@ class MyHomePage extends StatelessWidget {
                   // This prevents the loading indicator showing below the
                   // button
                   clipBehavior: Clip.hardEdge,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                   child: InkWell(
                     onTap: callback,
                     child: child,
                   ),
                 );
               },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
                   horizontal: 16.0,
                   vertical: 8.0,
                 ),
@@ -157,7 +161,7 @@ class MyHomePage extends StatelessWidget {
                 ),
               ),
             ),
-            Divider(),
+            const Divider(),
           ],
         ),
       ),
