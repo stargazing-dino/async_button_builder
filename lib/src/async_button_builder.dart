@@ -81,6 +81,12 @@ class AsyncButtonBuilder extends StatefulWidget {
   /// completes.
   final AsyncCallback? onPressed;
 
+  /// A callback that runs [buttonState] changes to [ButtonState.success]
+  final VoidCallback? onSuccess;
+
+  /// A callback that runs [buttonState] changes to [ButtonState.error]
+  final VoidCallback? onError;
+
   /// This is used to manually drive the state of the loading button thus
   /// initiating the corresponding animation and showing the correct button
   /// child.
@@ -200,6 +206,8 @@ class AsyncButtonBuilder extends StatefulWidget {
     required this.child,
     required this.onPressed,
     required this.builder,
+    this.onSuccess,
+    this.onError,
     this.loadingWidget,
     this.successWidget,
     this.errorWidget,
@@ -390,7 +398,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                             buttonState = const ButtonState.success();
                           });
 
-                          setTimer(widget.successDuration);
+                          setTimer(widget.successDuration, widget.onSuccess);
                         } else {
                           setState(() {
                             buttonState = const ButtonState.idle();
@@ -406,7 +414,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                             buttonState = const ButtonState.error();
                           });
 
-                          setTimer(widget.errorDuration);
+                          setTimer(widget.errorDuration, widget.onSuccess);
                         } else {
                           setState(() {
                             buttonState = const ButtonState.idle();
@@ -423,11 +431,13 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
     );
   }
 
-  void setTimer(Duration duration) {
+  void setTimer(Duration duration, [VoidCallback? then]) {
     timer = Timer(
       duration,
       () {
         timer?.cancel();
+
+        then?.call();
 
         if (mounted) {
           setState(() {
