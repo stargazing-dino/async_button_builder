@@ -415,7 +415,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                             buttonState = const ButtonState.error();
                           });
 
-                          setTimer(widget.errorDuration, widget.onSuccess);
+                          setTimer(widget.errorDuration, widget.onError);
                         } else {
                           setState(() {
                             buttonState = const ButtonState.idle();
