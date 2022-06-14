@@ -1,3 +1,6 @@
+## [2.3.0+1] - 2022-05-24
+- Fixed onError never being called when an error occurs - Credit @jonjomckay
+
 ## [2.3.0] - 2022-05-24
 - Removed freezed dependency and added new callbacks @mergehez
 - Upgrade to freezed 2 (excluding user now) @quantosapplications @esenmx
