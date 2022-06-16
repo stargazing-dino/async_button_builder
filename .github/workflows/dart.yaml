@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Git Checkout"
-        uses: actions/checkout@2v
+        uses: actions/checkout@v3
 
       - name: "Install Flutter"
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
 
       - name: Install dependencies
         run: flutter pub get
