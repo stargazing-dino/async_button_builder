@@ -21,11 +21,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-  test:
-    timeout-minutes: 15
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
       - name: Check format
         run: flutter format --set-exit-if-changed .
 
