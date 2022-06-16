@@ -8,29 +8,24 @@ on:
     - cron: "0 10 * * *"
 
 jobs:
-  flutter:
+  setup:
+    timeout-minutes: 15
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        channel:
-          - beta
-          - stable
-
     steps:
       - name: "Git Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@2v
 
       - name: "Install Flutter"
-        uses: subosito/flutter-action@v2
-        with:
-          channel: ${{ matrix.channel }}
-
-      - run: flutter --version
+        uses: subosito/flutter-action@v1
 
       - name: Install dependencies
         run: flutter pub get
 
+  test:
+    timeout-minutes: 15
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
       - name: Check format
         run: flutter format --set-exit-if-changed .
 
