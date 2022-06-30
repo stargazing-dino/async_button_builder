@@ -11,6 +11,9 @@ typedef AsyncButtonBuilderCallback = Widget Function(
   ButtonState buttonState,
 );
 
+typedef ErrorCallback = Future<void> Function(
+    Object? error, StackTrace? stackTrace);
+
 /// A `builder` that wraps a button providing disabled, loading, success and
 /// error states while retaining almost full access to the original Button's
 /// API. This is useful for any long running operations and helps better
@@ -85,7 +88,7 @@ class AsyncButtonBuilder extends StatefulWidget {
   final VoidCallback? onSuccess;
 
   /// A callback that runs [buttonState] changes to [ButtonState.error]
-  final VoidCallback? onError;
+  final ErrorCallback? onError;
 
   /// This is used to manually drive the state of the loading button thus
   /// initiating the corresponding animation and showing the correct button
@@ -415,7 +418,11 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                             buttonState = const ButtonState.error();
                           });
 
-                          setTimer(widget.errorDuration, widget.onError);
+                          var onError = widget.onError;
+                          if (onError != null) {
+                            setTimer(widget.errorDuration,
+                                () => onError(error, stackTrace));
+                          }
                         } else {
                           setState(() {
                             buttonState = const ButtonState.idle();
