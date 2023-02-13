@@ -81,6 +81,57 @@ void main() {
     expect(find.text('error'), findsOneWidget);
   });
 
+  testWidgets('error notification bubbles up', (WidgetTester tester) async {
+    const duration = Duration(milliseconds: 250);
+    var idleCount = 0;
+    var loadingCount = 0;
+    var successCount = 0;
+    var errorCount = 0;
+
+    final textButton = MaterialApp(
+      home: NotificationListener<AsyncButtonNotification>(
+        onNotification: (notification) {
+          notification.buttonState.when(
+            idle: () => idleCount += 1,
+            loading: () => loadingCount += 1,
+            success: () => successCount += 1,
+            error: (_, __) => errorCount += 1,
+          );
+
+          return true;
+        },
+        child: AsyncButtonBuilder(
+          duration: duration,
+          errorDuration: const Duration(milliseconds: 100),
+          errorWidget: const Text('error'),
+          onPressed: () async {
+            throw ArgumentError();
+          },
+          builder: (context, child, callback, state) {
+            return TextButton(onPressed: callback, child: child);
+          },
+          child: const Text('click me'),
+        ),
+      ),
+    );
+
+    await tester.pumpWidget(textButton);
+    final button =
+        find.byType(TextButton).evaluate().first.widget as TextButton;
+
+    expect(
+      () => button.onPressed!.call(),
+      throwsA(isA<ArgumentError>()),
+    );
+
+    await tester.pump(const Duration(milliseconds: 200));
+
+    expect(errorCount, 1);
+    expect(idleCount, 1);
+    expect(loadingCount, 1);
+    expect(successCount, 0);
+  });
+
   testWidgets('Returns to child widget', (WidgetTester tester) async {
     const duration = Duration(milliseconds: 250);
     final textButton = MaterialApp(
