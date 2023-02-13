@@ -1,3 +1,6 @@
+## [3.0.0+1] - 2022-02-13
+- Fix `Undefined name 'optionalTypeArgs'.` Also adds back the hard dep on freezed_annotation.
+
 ## [3.0.0] - 2022-02-13
 - Added notification functionality. The error variant now passes through the error and stacktrace which would be needed for a notification to be useful. This is a breaking change as the error widget now takes an error and stacktrace as arguments.
 
