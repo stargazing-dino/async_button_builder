@@ -92,7 +92,7 @@ class MyHomePage extends StatelessWidget {
                 return OutlinedButton(
                   onPressed: callback,
                   style: OutlinedButton.styleFrom(
-                    primary: Colors.black,
+                    foregroundColor: Colors.black,
                     backgroundColor: buttonColor,
                   ),
                   child: child,

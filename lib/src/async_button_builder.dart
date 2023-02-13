@@ -240,8 +240,7 @@ class AsyncButtonBuilder extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AsyncButtonBuilderState createState() => _AsyncButtonBuilderState();
+  State<AsyncButtonBuilder> createState() => _AsyncButtonBuilderState();
 }
 
 class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
@@ -290,7 +289,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
     var errorWidget = widget.errorWidget ??
         Icon(
           Icons.error,
-          color: theme.errorColor,
+          color: theme.colorScheme.error,
         );
     final successPadding = widget.successPadding;
     final errorPadding = widget.errorPadding;

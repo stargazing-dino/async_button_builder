@@ -5,16 +5,15 @@ version: 2.3.0+1
 homepage: https://github.com/Nolence/async_button/tree/main/packages/async_button_builder
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  meta: ^1.7.0
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 
