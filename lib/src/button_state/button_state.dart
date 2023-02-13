@@ -1,3 +1,5 @@
+// import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'button_state.freezed.dart';
 
 /// This union class represents the state of the button in either a [Idling],
@@ -33,5 +35,6 @@ class ButtonState with _$ButtonState {
   const factory ButtonState.idle() = Idle;
   const factory ButtonState.loading() = Loading;
   const factory ButtonState.success() = Success;
-  const factory ButtonState.error() = Error;
+  const factory ButtonState.error(Object error, [StackTrace? stackTrace]) =
+      Error;
 }

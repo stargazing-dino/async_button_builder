@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'button_state.dart';
 
@@ -21,15 +21,15 @@ mixin _$ButtonState {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(Object error, StackTrace? stackTrace) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(Object error, StackTrace? stackTrace)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$ButtonState {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(Object error, StackTrace? stackTrace)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,10 +51,10 @@ mixin _$ButtonState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Idle value)? idle,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(Idle value)? idle,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,32 +72,31 @@ mixin _$ButtonState {
 abstract class $ButtonStateCopyWith<$Res> {
   factory $ButtonStateCopyWith(
           ButtonState value, $Res Function(ButtonState) then) =
-      _$ButtonStateCopyWithImpl<$Res>;
+      _$ButtonStateCopyWithImpl<$Res, ButtonState>;
 }
 
 /// @nodoc
-class _$ButtonStateCopyWithImpl<$Res> implements $ButtonStateCopyWith<$Res> {
+class _$ButtonStateCopyWithImpl<$Res, $Val extends ButtonState>
+    implements $ButtonStateCopyWith<$Res> {
   _$ButtonStateCopyWithImpl(this._value, this._then);
 
-  final ButtonState _value;
   // ignore: unused_field
-  final $Res Function(ButtonState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
-abstract class $IdleCopyWith<$Res> {
-  factory $IdleCopyWith(Idle value, $Res Function(Idle) then) =
-      _$IdleCopyWithImpl<$Res>;
+abstract class _$$IdleCopyWith<$Res> {
+  factory _$$IdleCopyWith(_$Idle value, $Res Function(_$Idle) then) =
+      __$$IdleCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$IdleCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $IdleCopyWith<$Res> {
-  _$IdleCopyWithImpl(Idle _value, $Res Function(Idle) _then)
-      : super(_value, (v) => _then(v as Idle));
-
-  @override
-  Idle get _value => super._value as Idle;
+class __$$IdleCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res, _$Idle>
+    implements _$$IdleCopyWith<$Res> {
+  __$$IdleCopyWithImpl(_$Idle _value, $Res Function(_$Idle) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -113,7 +112,7 @@ class _$Idle implements Idle {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Idle);
+        (other.runtimeType == runtimeType && other is _$Idle);
   }
 
   @override
@@ -125,7 +124,7 @@ class _$Idle implements Idle {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(Object error, StackTrace? stackTrace) error,
   }) {
     return idle();
   }
@@ -133,10 +132,10 @@ class _$Idle implements Idle {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(Object error, StackTrace? stackTrace)? error,
   }) {
     return idle?.call();
   }
@@ -147,7 +146,7 @@ class _$Idle implements Idle {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(Object error, StackTrace? stackTrace)? error,
     required TResult orElse(),
   }) {
     if (idle != null) {
@@ -170,10 +169,10 @@ class _$Idle implements Idle {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Idle value)? idle,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(Idle value)? idle,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return idle?.call(this);
   }
@@ -199,19 +198,17 @@ abstract class Idle implements ButtonState {
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class _$$LoadingCopyWith<$Res> {
+  factory _$$LoadingCopyWith(_$Loading value, $Res Function(_$Loading) then) =
+      __$$LoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
-
-  @override
-  Loading get _value => super._value as Loading;
+class __$$LoadingCopyWithImpl<$Res>
+    extends _$ButtonStateCopyWithImpl<$Res, _$Loading>
+    implements _$$LoadingCopyWith<$Res> {
+  __$$LoadingCopyWithImpl(_$Loading _value, $Res Function(_$Loading) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -227,7 +224,7 @@ class _$Loading implements Loading {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Loading);
+        (other.runtimeType == runtimeType && other is _$Loading);
   }
 
   @override
@@ -239,7 +236,7 @@ class _$Loading implements Loading {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(Object error, StackTrace? stackTrace) error,
   }) {
     return loading();
   }
@@ -247,10 +244,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(Object error, StackTrace? stackTrace)? error,
   }) {
     return loading?.call();
   }
@@ -261,7 +258,7 @@ class _$Loading implements Loading {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(Object error, StackTrace? stackTrace)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -284,10 +281,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Idle value)? idle,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(Idle value)? idle,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
   }
@@ -313,19 +310,17 @@ abstract class Loading implements ButtonState {
 }
 
 /// @nodoc
-abstract class $SuccessCopyWith<$Res> {
-  factory $SuccessCopyWith(Success value, $Res Function(Success) then) =
-      _$SuccessCopyWithImpl<$Res>;
+abstract class _$$SuccessCopyWith<$Res> {
+  factory _$$SuccessCopyWith(_$Success value, $Res Function(_$Success) then) =
+      __$$SuccessCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SuccessCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $SuccessCopyWith<$Res> {
-  _$SuccessCopyWithImpl(Success _value, $Res Function(Success) _then)
-      : super(_value, (v) => _then(v as Success));
-
-  @override
-  Success get _value => super._value as Success;
+class __$$SuccessCopyWithImpl<$Res>
+    extends _$ButtonStateCopyWithImpl<$Res, _$Success>
+    implements _$$SuccessCopyWith<$Res> {
+  __$$SuccessCopyWithImpl(_$Success _value, $Res Function(_$Success) _then)
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -341,7 +336,7 @@ class _$Success implements Success {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Success);
+        (other.runtimeType == runtimeType && other is _$Success);
   }
 
   @override
@@ -353,7 +348,7 @@ class _$Success implements Success {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(Object error, StackTrace? stackTrace) error,
   }) {
     return success();
   }
@@ -361,10 +356,10 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(Object error, StackTrace? stackTrace)? error,
   }) {
     return success?.call();
   }
@@ -375,7 +370,7 @@ class _$Success implements Success {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(Object error, StackTrace? stackTrace)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -398,10 +393,10 @@ class _$Success implements Success {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Idle value)? idle,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(Idle value)? idle,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return success?.call(this);
   }
@@ -427,39 +422,70 @@ abstract class Success implements ButtonState {
 }
 
 /// @nodoc
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
+abstract class _$$ErrorCopyWith<$Res> {
+  factory _$$ErrorCopyWith(_$Error value, $Res Function(_$Error) then) =
+      __$$ErrorCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Object error, StackTrace? stackTrace});
 }
 
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res> extends _$ButtonStateCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class __$$ErrorCopyWithImpl<$Res>
+    extends _$ButtonStateCopyWithImpl<$Res, _$Error>
+    implements _$$ErrorCopyWith<$Res> {
+  __$$ErrorCopyWithImpl(_$Error _value, $Res Function(_$Error) _then)
+      : super(_value, _then);
 
+  @pragma('vm:prefer-inline')
   @override
-  Error get _value => super._value as Error;
+  $Res call({
+    Object? error = null,
+    Object? stackTrace = freezed,
+  }) {
+    return _then(_$Error(
+      null == error ? _value.error : error,
+      freezed == stackTrace
+          ? _value.stackTrace
+          : stackTrace // ignore: cast_nullable_to_non_nullable
+              as StackTrace?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$Error implements Error {
-  const _$Error();
+  const _$Error(this.error, [this.stackTrace]);
+
+  @override
+  final Object error;
+  @override
+  final StackTrace? stackTrace;
 
   @override
   String toString() {
-    return 'ButtonState.error()';
+    return 'ButtonState.error(error: $error, stackTrace: $stackTrace)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is Error);
+        (other.runtimeType == runtimeType &&
+            other is _$Error &&
+            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.stackTrace, stackTrace) ||
+                other.stackTrace == stackTrace));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(error), stackTrace);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorCopyWith<_$Error> get copyWith =>
+      __$$ErrorCopyWithImpl<_$Error>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -467,20 +493,20 @@ class _$Error implements Error {
     required TResult Function() idle,
     required TResult Function() loading,
     required TResult Function() success,
-    required TResult Function() error,
+    required TResult Function(Object error, StackTrace? stackTrace) error,
   }) {
-    return error();
+    return error(this.error, stackTrace);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? idle,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function()? error,
+    TResult? Function()? idle,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function(Object error, StackTrace? stackTrace)? error,
   }) {
-    return error?.call();
+    return error?.call(this.error, stackTrace);
   }
 
   @override
@@ -489,11 +515,11 @@ class _$Error implements Error {
     TResult Function()? idle,
     TResult Function()? loading,
     TResult Function()? success,
-    TResult Function()? error,
+    TResult Function(Object error, StackTrace? stackTrace)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(this.error, stackTrace);
     }
     return orElse();
   }
@@ -512,10 +538,10 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(Idle value)? idle,
-    TResult Function(Loading value)? loading,
-    TResult Function(Success value)? success,
-    TResult Function(Error value)? error,
+    TResult? Function(Idle value)? idle,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(Success value)? success,
+    TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
   }
@@ -537,5 +563,11 @@ class _$Error implements Error {
 }
 
 abstract class Error implements ButtonState {
-  const factory Error() = _$Error;
+  const factory Error(final Object error, [final StackTrace? stackTrace]) =
+      _$Error;
+
+  Object get error;
+  StackTrace? get stackTrace;
+  @JsonKey(ignore: true)
+  _$$ErrorCopyWith<_$Error> get copyWith => throw _privateConstructorUsedError;
 }

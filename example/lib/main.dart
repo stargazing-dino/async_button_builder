@@ -86,7 +86,7 @@ class MyHomePage extends StatelessWidget {
                   idle: () => Colors.yellow[200],
                   loading: () => Colors.grey,
                   success: () => Colors.orangeAccent,
-                  error: () => Colors.orange,
+                  error: (_, __) => Colors.orange,
                 );
 
                 return OutlinedButton(

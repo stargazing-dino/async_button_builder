@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:async_button_builder/src/button_state/button_state.dart';
+import 'package:async_button_builder/async_button_builder.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -201,6 +201,11 @@ class AsyncButtonBuilder extends StatefulWidget {
   /// Whether to animate the [Size] of the widget implicitly.
   final bool animateSize;
 
+  /// Whether we should bubble up [AsyncButtonNotification]s up the widget tree.
+  /// This is useful if you want to listen to the state of the button from a
+  /// parent widget.
+  final bool notifications;
+
   const AsyncButtonBuilder({
     Key? key,
     required this.child,
@@ -237,6 +242,7 @@ class AsyncButtonBuilder extends StatefulWidget {
     this.sizeClipBehavior = Clip.hardEdge,
     this.sizeAlignment = Alignment.center,
     this.animateSize = true,
+    this.notifications = true,
   }) : super(key: key);
 
   @override
@@ -325,19 +331,19 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
         idle: () => widget.idleSwitchInCurve,
         loading: () => widget.loadingSwitchInCurve,
         success: () => widget.successSwitchInCurve,
-        error: () => widget.errorSwitchInCurve,
+        error: (_, __) => widget.errorSwitchInCurve,
       ),
       switchOutCurve: buttonState.when(
         idle: () => widget.idleSwitchOutCurve,
         loading: () => widget.loadingSwitchOutCurve,
         success: () => widget.successSwitchOutCurve,
-        error: () => widget.errorSwitchOutCurve,
+        error: (_, __) => widget.errorSwitchOutCurve,
       ),
       transitionBuilder: buttonState.when(
         idle: () => widget.idleTransitionBuilder,
         loading: () => widget.loadingTransitionBuilder,
         success: () => widget.successTransitionBuilder,
-        error: () => widget.errorTransitionBuilder,
+        error: (_, __) => widget.errorTransitionBuilder,
       ),
       child: buttonState.when(
         idle: () => KeyedSubtree(
@@ -352,7 +358,7 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
           key: ValueKey('__success__$parentKeyValue'),
           child: successWidget,
         ),
-        error: () => KeyedSubtree(
+        error: (_, __) => KeyedSubtree(
           key: ValueKey('__error__$parentKeyValue'),
           child: errorWidget,
         ),
@@ -381,11 +387,18 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
               : buttonState.maybeWhen(
                   idle: () => () {
                     final completer = Completer<void>();
+
                     // I might not want to set buttonState if we're being
                     // driven by widget.buttonState...
                     setState(() {
                       buttonState = const ButtonState.loading();
                     });
+
+                    if (widget.notifications) {
+                      const AsyncButtonNotification(
+                        buttonState: ButtonState.loading(),
+                      ).dispatch(context);
+                    }
 
                     timer?.cancel();
 
@@ -398,11 +411,23 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                             buttonState = const ButtonState.success();
                           });
 
+                          if (widget.notifications) {
+                            const AsyncButtonNotification(
+                              buttonState: ButtonState.success(),
+                            ).dispatch(context);
+                          }
+
                           setTimer(widget.successDuration, widget.onSuccess);
                         } else {
                           setState(() {
                             buttonState = const ButtonState.idle();
                           });
+
+                          if (widget.notifications) {
+                            const AsyncButtonNotification(
+                              buttonState: ButtonState.idle(),
+                            ).dispatch(context);
+                          }
                         }
                       }
                     }).catchError((Object error, StackTrace stackTrace) {
@@ -411,14 +436,26 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
                       if (mounted) {
                         if (widget.showError) {
                           setState(() {
-                            buttonState = const ButtonState.error();
+                            buttonState = ButtonState.error(error, stackTrace);
                           });
+
+                          if (widget.notifications) {
+                            AsyncButtonNotification(
+                              buttonState: ButtonState.error(error, stackTrace),
+                            ).dispatch(context);
+                          }
 
                           setTimer(widget.errorDuration, widget.onError);
                         } else {
                           setState(() {
                             buttonState = const ButtonState.idle();
                           });
+
+                          if (widget.notifications) {
+                            const AsyncButtonNotification(
+                              buttonState: ButtonState.idle(),
+                            ).dispatch(context);
+                          }
                         }
                       }
                     });
@@ -443,6 +480,12 @@ class _AsyncButtonBuilderState extends State<AsyncButtonBuilder>
           setState(() {
             buttonState = const ButtonState.idle();
           });
+
+          if (widget.notifications) {
+            const AsyncButtonNotification(
+              buttonState: ButtonState.idle(),
+            ).dispatch(context);
+          }
         }
       },
     );
