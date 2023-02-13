@@ -1,4 +1,7 @@
 ## [2.3.0+1] - 2022-05-24
+- Added back freezed_annotation as a hard dep.
+
+## [2.3.0+1] - 2022-05-24
 - Fixed onError never being called when an error occurs - Credit @jonjomckay
 
 ## [2.3.0] - 2022-05-24
