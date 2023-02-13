@@ -73,7 +73,7 @@ void main() {
 
     expect(
       () => button.onPressed!.call(),
-      throwsA(isInstanceOf<ArgumentError>()),
+      throwsA(isA<ArgumentError>()),
     );
 
     await tester.pump(const Duration(milliseconds: 200));
