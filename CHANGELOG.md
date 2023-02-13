@@ -1,3 +1,9 @@
+## [3.0.0] - 2022-02-13
+- Added notification functionality. The error variant now passes through the error and stacktrace which would be needed for a notification to be useful. This is a breaking change as the error widget now takes an error and stacktrace as arguments.
+
+## [2.3.0+2] - 2023-02-13
+- Not pushed
+
 ## [2.3.0+1] - 2022-05-24
 - Fixed onError never being called when an error occurs - Credit @jonjomckay
 
